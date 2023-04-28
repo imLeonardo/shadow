@@ -1,0 +1,82 @@
+﻿// server.h: 标准系统包含文件的包含文件
+// 或项目特定的包含文件.
+
+#ifndef SHADOW_SERVER_H
+#define SHADOW_SERVER_H
+
+#include "define.h"
+#include "singleton.h"
+#include "luabridge/luabridge.h"
+
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+};
+
+namespace shadow {
+    class Server final : public Singleton<Server> {
+    public:
+        explicit Server(Token);
+
+        ~Server() override = default;
+
+        /*
+        * 初始化
+        * @return errcode
+        */
+        ErrCode init();
+
+        /*
+        * 启动
+        * @return errcode
+        */
+        ErrCode start();
+
+        /*
+        * 运行
+        * @return errcode
+        */
+        ErrCode run();
+
+        /*pause
+        * 暂停
+        * @return errcode
+        */
+        ErrCode pause();
+
+        /*
+        * 停止
+        * @return errcode
+        */
+        ErrCode stop();
+
+        /*
+        * 退出
+        * @return errcode
+        */
+        ErrCode exit() noexcept;
+
+        /*
+        * 获取服务器状态
+        * @return server_state
+        */
+        ServerState getServerState();
+
+    protected:
+
+    private:
+        std::atomic<ServerState> serverState;
+        std::map<int, luabridge::LuaObj*> luaObjs;
+
+        /*
+        * 设置服务器状态
+        * @return errcode
+        */
+        ErrCode setServerState(const ServerState &);
+
+        bool isRunning();
+    };
+} // namespace shadow
+
+#endif // !SHADOW_SERVER_H

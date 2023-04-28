@@ -1,0 +1,8 @@
+target("util")
+    set_kind("static")
+    add_includedirs("include", { public = true })
+    add_files("*.cpp")
+    if is_plat("windows") then
+        add_defines("WIN32", "_WIN32", "DLLEXPORT")
+    end
+    add_deps("log")

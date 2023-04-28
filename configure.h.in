@@ -1,0 +1,4 @@
+_Pragma("once")
+
+//#define MAJOR_VERSION @MAJOR_VERSION@
+//#define MINOR_VERSION @MINOR_VERSION@
