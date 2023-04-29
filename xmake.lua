@@ -22,7 +22,10 @@ if is_mode("release") then
     end
 end
 
---add_requires("protobuf-cpp")
+add_requires("spdlog")
+add_requires("asio")
+add_requires("lua")
+add_requires("protobuf-cpp")
 
 includes("src/**/xmake.lua")
 
