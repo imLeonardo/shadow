@@ -23,10 +23,12 @@ local function build()
         end
     end
 
-    add_requires("spdlog")
-    add_requires("asio")
-    add_requires("lua")
-    add_requires("protobuf-cpp")
+    add_requires(
+            "spdlog",
+            "asio",
+            "lua",
+            "protobuf-cpp"
+    )
 
     includes("src/**/xmake.lua")
 
@@ -35,7 +37,6 @@ local function build()
     target("shadow")
     set_kind("binary")
     add_files("src/*.cpp")
-    --add_packages("protobuf-cpp")
     add_defines("SHARED_LIB")
     if is_plat("windows") then
         add_defines("WIN32", "_WIN32", "DLLEXPORT")
