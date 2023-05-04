@@ -1,40 +1,34 @@
-local function build()
-    set_project("shadow")
+set_project("shadow")
 
-    add_configfiles("config.h.in")
+add_configfiles("config.h.in")
 
-    -- version
-    set_version("0.0.1", { build = "%Y%m%d%H%M" })
+-- version
+set_version("0.0.1", { build = "%Y%m%d%H%M" })
 
-    -- set xmake min version
-    set_xmakever("2.2.3")
+-- set xmake min version
+set_xmakever("2.2.3")
 
-    -- set warning all as error
-    --set_warnings("all", "error")
+-- set warning all as error
+--set_warnings("all", "error")
 
-    -- set language: c99, c++11
-    set_languages("c99", "cxx11")
+-- set language: c99, c++11
+set_languages("c99", "cxx11")
 
-    add_rules("mode.debug", "mode.release")
-    if is_mode("release") then
-        set_optimize("smallest")
-        if is_plat("windows") then
-            add_ldflags("/LTCG")
-        end
+add_rules("mode.debug", "mode.release")
+if is_mode("release") then
+    set_optimize("smallest")
+    if is_plat("windows") then
+        add_ldflags("/LTCG")
     end
+end
 
-    add_requires(
-            "spdlog",
-            "asio",
-            "lua",
-            "protobuf-cpp"
-    )
+add_requires("protobuf-cpp")
 
-    includes("src/**/xmake.lua")
+includes("src/**/xmake.lua")
 
-    add_includedirs("src/include")
+add_includedirs("src/include")
 
-    target("shadow")
+target("shadow", function()
     set_kind("binary")
     add_files("src/*.cpp")
     add_defines("SHARED_LIB")
@@ -47,6 +41,4 @@ local function build()
     add_deps("net")
     add_deps("thread")
     add_deps("map")
-end
-
-build()
+end)
