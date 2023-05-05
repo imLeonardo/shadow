@@ -31,6 +31,10 @@ add_includedirs("src/include")
 target("shadow", function()
     set_kind("binary")
     add_files("src/*.cpp")
+
+    add_packages("protobuf-cpp")
+    add_files("proto/*.proto", {rules = "protobuf.cpp"})
+
     add_defines("SHARED_LIB")
     if is_plat("windows") then
         add_defines("WIN32", "_WIN32", "DLLEXPORT")
