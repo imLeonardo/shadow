@@ -1,4 +1,4 @@
-target("util")
+target("util", function()
     set_kind("static")
     add_includedirs("include", { public = true })
     add_files("*.cpp")
@@ -6,3 +6,4 @@ target("util")
         add_defines("WIN32", "_WIN32", "DLLEXPORT")
     end
     add_deps("log")
+end)
