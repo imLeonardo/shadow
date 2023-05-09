@@ -11,6 +11,8 @@ set_xmakever("2.2.3")
 -- set warning all as error
 --set_warnings("all", "error")
 
+--set_toolchains("clang")
+
 -- set language: c99, c++11
 set_languages("c99", "cxx11")
 
