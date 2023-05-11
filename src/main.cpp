@@ -2,7 +2,7 @@
 #include <csignal>
 
 #include "config.h"
-#include "server.h"
+#include "app.h"
 #include "thread/pool.h"
 #include "net/epoll.h"
 
@@ -10,7 +10,7 @@ void signalHandler(int sig) {
     switch(sig) {
         case SIGINT:
             try {
-                shadow::Server::instance().stop();
+                shadow::App::instance().stop();
             } catch(const std::exception &err) {
                 shadow::Log::critical(err.what());
             }
@@ -49,10 +49,10 @@ int main(int argc, char *argv[]) {
 
         shadow::net::Epoll::instance();
 
-        shadow::Server::instance().init();
-        shadow::Server::instance().start();
-        shadow::Server::instance().run();
-        shadow::Server::instance().exit();
+        shadow::App::instance().init();
+        shadow::App::instance().start();
+        shadow::App::instance().run();
+        shadow::App::instance().exit();
 
         shadow::net::Epoll::instance().release();
 

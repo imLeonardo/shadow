@@ -1,4 +1,4 @@
-﻿#include "server.h"
+﻿#include "app.h"
 
 #include <numeric>
 #include <map>
@@ -13,7 +13,7 @@
 #include "map/map.h"
 
 namespace shadow {
-    Server::Server(Token) : serverState(ServerState::UNDEFINED) {
+    App::App(Token) : serverState(ServerState::UNDEFINED) {
 
     }
 
@@ -21,7 +21,7 @@ namespace shadow {
     * 初始化
     * @return errcode
     */
-    ErrCode Server::init() {
+    ErrCode App::init() {
         shadow::Log::info("server init");
         this->setServerState(ServerState::INIT);
 
@@ -32,7 +32,7 @@ namespace shadow {
     * 启动
     * @return errcode
     */
-    ErrCode Server::start() {
+    ErrCode App::start() {
         shadow::Log::info("server start");
         this->setServerState(ServerState::START);
 
@@ -43,7 +43,7 @@ namespace shadow {
     * 运行
     * @return errcode
     */
-    ErrCode Server::run() {
+    ErrCode App::run() {
         shadow::Log::info("server begin run");
         this->setServerState(ServerState::RUN);
 
@@ -62,7 +62,7 @@ namespace shadow {
 //                this->m_luaobjs.at(i).loadfile("script/lua/test1.lua");
 //                auto ret = this->m_luaobjs.at(i).call_func<luabridge::LuaRef>("test_add");
                 this->luaObjs.insert(std::make_pair<int, luabridge::LuaObj *>(std::move(i), new luabridge::LuaObj));
-                while(Server::instance().isRunning()) {
+                while(App::instance().isRunning()) {
                     int a[] = { 1, 2, 3, 4, 5 };
                     Log::info("a's length is {},n:{}", util::arrayLength(a), i);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
@@ -79,7 +79,7 @@ namespace shadow {
     * 暂停
     * @return errcode
     */
-    ErrCode Server::pause() {
+    ErrCode App::pause() {
         shadow::Log::info("server begin pause");
         this->setServerState(ServerState::PAUSE);
 
@@ -90,7 +90,7 @@ namespace shadow {
     * 停止
     * @return errcode
     */
-    ErrCode Server::stop() {
+    ErrCode App::stop() {
         shadow::Log::info("server begin stop");
         this->setServerState(ServerState::STOP);
 
@@ -109,7 +109,7 @@ namespace shadow {
     * 退出
     * @return errcode
     */
-    ErrCode Server::exit() noexcept {
+    ErrCode App::exit() noexcept {
         shadow::Log::info("server begin exit");
 
         return ErrCode::SUCCESS;
@@ -119,7 +119,7 @@ namespace shadow {
     * 获取服务器状态
     * @return server_state
     */
-    ServerState Server::getServerState() {
+    ServerState App::getServerState() {
         return this->serverState;
     }
 
@@ -127,14 +127,14 @@ namespace shadow {
     * 设置服务器状态
     * @return errcode
     */
-    ErrCode Server::setServerState(const ServerState &state) {
+    ErrCode App::setServerState(const ServerState &state) {
         shadow::Log::info("set server state {}", (int) state);
         this->serverState = state;
 
         return ErrCode::SUCCESS;
     }
 
-    bool Server::isRunning() {
+    bool App::isRunning() {
         return this->serverState == ServerState::RUN;
     }
 } // namespace shadow

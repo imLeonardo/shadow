@@ -1,5 +1,6 @@
 #include "log/log.h"
 
+#include "spdlog/spdlog.h"
 #include "spdlog/async.h"
 #include "spdlog/async_logger.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
@@ -12,18 +13,20 @@ namespace shadow {
             spdlog::init_thread_pool(256, 1);
             // 输出
             auto sinkStdout = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-            auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 2, 0);
+            auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 0, 0);
             spdlog::sinks_init_list sinks { sinkStdout, sinkDailyAll };
             const char *pattern = "%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$";
             loggerAll = std::make_shared<spdlog::async_logger>("loggerAll", sinks, spdlog::thread_pool());
             loggerAll->set_level((spdlog::level::level_enum)level);
             loggerAll->set_pattern(pattern);
+            loggerAll->enable_backtrace(32);
             spdlog::register_logger(loggerAll);
 
             // 错误日志文件
             loggerDailyErr = spdlog::daily_logger_mt("loggerDailyErr", "logs/error.log", 2, 0);
             loggerDailyErr->set_level(spdlog::level::err);
             loggerDailyErr->set_pattern(pattern);
+            loggerDailyErr->enable_backtrace(32);
             spdlog::register_logger(loggerDailyErr);
 
             return ErrCode::SUCCESS;

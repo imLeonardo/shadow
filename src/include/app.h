@@ -1,8 +1,8 @@
 ﻿// server.h: 标准系统包含文件的包含文件
 // 或项目特定的包含文件.
 
-#ifndef SHADOW_SERVER_H
-#define SHADOW_SERVER_H
+#ifndef SHADOW_APP_H
+#define SHADOW_APP_H
 
 #include "define.h"
 #include "singleton.h"
@@ -15,11 +15,11 @@ extern "C" {
 };
 
 namespace shadow {
-    class Server final : public Singleton<Server> {
+    class App final : public Singleton<App> {
     public:
-        explicit Server(Token);
+        explicit App(Token);
 
-        ~Server() override = default;
+        ~App() override = default;
 
         /*
         * 初始化
@@ -79,4 +79,4 @@ namespace shadow {
     };
 } // namespace shadow
 
-#endif // !SHADOW_SERVER_H
+#endif // !SHADOW_APP_H
