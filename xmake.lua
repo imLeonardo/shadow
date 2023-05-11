@@ -35,7 +35,7 @@ target("shadow", function()
     add_files("src/*.cpp")
 
     add_packages("protobuf-cpp")
-    add_files("proto/*.proto", {rules = "protobuf.cpp"})
+    add_files("proto/**.proto", {rules = "protobuf.cpp", proto_rootdir = "proto"})
 
     add_defines("SHARED_LIB")
     if is_plat("windows") then
