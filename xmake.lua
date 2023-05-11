@@ -25,6 +25,7 @@ if is_mode("release") then
 end
 
 add_requires("protobuf-cpp")
+--add_requires("readline")
 
 includes("src/**/xmake.lua")
 
@@ -35,7 +36,7 @@ target("shadow", function()
     add_files("src/*.cpp")
 
     add_packages("protobuf-cpp")
-    add_files("proto/**.proto", {rules = "protobuf.cpp", proto_rootdir = "proto"})
+    add_files("src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "src/proto"})
 
     add_defines("SHARED_LIB")
     if is_plat("windows") then
