@@ -5,15 +5,14 @@
 #include <stack>
 #include <thread>
 
-//#include "configure.h"
-#include "log/log.h"
+#include "configure/configure_interface.h"
+#include "log/log_interface.h"
 #include "util/util.h"
 #include "thread/pool.h"
-#include "net/epoll.h"
-#include "map/map.h"
+//#include "map/map.h"
 
 namespace shadow {
-    App::App(Token) : serverState(ServerState::UNDEFINED) {
+    App::App(Singleton<App>::Token) : mState(AppState::UNDEFINED) {
 
     }
 
@@ -22,8 +21,8 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::init() {
-        shadow::Log::info("server init");
-        this->setServerState(ServerState::INIT);
+        shadow::log::info("server init");
+        this->setState(AppState::INIT);
 
         return ErrCode::SUCCESS;
     }
@@ -33,8 +32,8 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::start() {
-        shadow::Log::info("server start");
-        this->setServerState(ServerState::START);
+        shadow::log::info("server start");
+        this->setState(AppState::START);
 
         return ErrCode::SUCCESS;
     }
@@ -44,27 +43,27 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::run() {
-        shadow::Log::info("server begin run");
-        this->setServerState(ServerState::RUN);
+        shadow::log::info("server begin run");
+        this->setState(AppState::RUN);
 
-        shadow::thread::Pool::instance().addTask("create map", []() {
-            auto *test_map = new shadow::Map();
-            test_map->createMap(160, 35, 0);
-
-            ErrCode e = shadow::MapPath::instance().aStar(test_map);
-            shadow::Log::info("aStar:{}", (int) e);
-//            test_map->print_map();
-        });
+//        shadow::thread::Pool::instance().addTask("create map", []() {
+//            auto *test_map = new shadow::Map();
+//            test_map->createMap(160, 35, 0);
+//
+//            ErrCode e = shadow::MapPath::instance().aStar(test_map);
+//            shadow::log::info("aStar:{}", (int) e);
+////            test_map->print_map();
+//        });
 
         for(int i = 0; i < 10; i++) {
             shadow::thread::Pool::instance().addTask("add work thread", [this, &i]() {
 //                this->m_luaobjs.insert(std::make_pair<int, luabridge::luaobj>(i, luabridge::luaobj()));
 //                this->m_luaobjs.at(i).loadfile("script/lua/test1.lua");
 //                auto ret = this->m_luaobjs.at(i).call_func<luabridge::LuaRef>("test_add");
-                this->luaObjs.insert(std::make_pair<int, luabridge::LuaObj *>(std::move(i), new luabridge::LuaObj));
+                this->mLuaObjs.insert(std::make_pair<int, luabridge::LuaObj *>(std::move(i), new luabridge::LuaObj));
                 while(App::instance().isRunning()) {
                     int a[] = { 1, 2, 3, 4, 5 };
-                    Log::info("a's length is {},n:{}", util::arrayLength(a), i);
+                    shadow::log::info("a's length is {},n:{}", util::arrayLength(a), i);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 }
             });
@@ -80,8 +79,8 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::pause() {
-        shadow::Log::info("server begin pause");
-        this->setServerState(ServerState::PAUSE);
+        shadow::log::info("server begin pause");
+        this->setState(AppState::PAUSE);
 
         return ErrCode::SUCCESS;
     }
@@ -91,13 +90,13 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::stop() {
-        shadow::Log::info("server begin stop");
-        this->setServerState(ServerState::STOP);
+        shadow::log::info("server begin stop");
+        this->setState(AppState::STOP);
 
         std::map<int, luabridge::LuaObj*>::iterator it;
-        for(it = this->luaObjs.begin(); it != this->luaObjs.end();) {
+        for(it = this->mLuaObjs.begin(); it != this->mLuaObjs.end();) {
             delete it->second;
-            this->luaObjs.erase(it++);
+            this->mLuaObjs.erase(it++);
         }
 
         shadow::thread::Pool::instance().release();
@@ -110,7 +109,7 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::exit() noexcept {
-        shadow::Log::info("server begin exit");
+        shadow::log::info("server begin exit");
 
         return ErrCode::SUCCESS;
     }
@@ -119,22 +118,22 @@ namespace shadow {
     * 获取服务器状态
     * @return server_state
     */
-    ServerState App::getServerState() {
-        return this->serverState;
+    AppState App::getState() {
+        return this->mState;
     }
 
     /*
     * 设置服务器状态
     * @return errcode
     */
-    ErrCode App::setServerState(const ServerState &state) {
-        shadow::Log::info("set server state {}", (int) state);
-        this->serverState = state;
+    ErrCode App::setState(const AppState &state) {
+        shadow::log::info("set app state {}", (int)state);
+        this->mState = state;
 
         return ErrCode::SUCCESS;
     }
 
     bool App::isRunning() {
-        return this->serverState == ServerState::RUN;
+        return this->mState == AppState::RUN;
     }
 } // namespace shadow

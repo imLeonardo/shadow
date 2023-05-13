@@ -2,6 +2,8 @@ package.path = "./?.lua;./script/lua/?.lua;" .. package.path
 
 local log = require("log")
 
+local config
+
 local function swap(t, left, right)
     local tmp = t[left]
     t[left] = t[right]
@@ -38,10 +40,18 @@ end
 function loadFile(configfile)
     log:info("load config file: %s.", configfile)
     configfile = string.gsub(configfile, ".lua", "")
-    local config = require(configfile)
+    config = require(configfile)
     local t = { 1, 3, 3, 3, 5, 7, 9, 11, 2, 4, 6, 8, 10 }
     quickSort(t, 1, #t)
     log:debug("t: %s", table.concat(t, ","))
 
     return config
+end
+
+function getConfig()
+    return config
+end
+
+function printConfig()
+
 end

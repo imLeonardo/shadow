@@ -1,73 +1,70 @@
-//
-// Created by leo on 2022/6/14.
-//
-
 #include "luabridge/luabridge.h"
 
+#include "log/log_interface.h"
+
 namespace luabridge {
-    LuaObj::LuaObj() : luaState(luaL_newstate()), topIndex(0) {
-        shadow::Log::init();
-        shadow::Log::debug("luaobj");
-        luaL_openlibs(this->luaState);
+    LuaObj::LuaObj() : mLuaState(luaL_newstate()), mTopIndex(0) {
+        shadow::log::debug("luaobj");
+        luaL_openlibs(this->mLuaState);
     }
 
     LuaObj::~LuaObj() {
-        shadow::Log::debug("~luaobj");
-        shadow::Log::release();
-        if(this->luaState != nullptr) {
-            lua_close(this->luaState);
-            this->luaState = nullptr;
+        shadow::log::debug("~luaobj");
+        shadow::log::release();
+        if(this->mLuaState != nullptr) {
+            lua_close(this->mLuaState);
+            this->mLuaState = nullptr;
         }
     }
 
     bool LuaObj::loadFile(const char *filePath) {
-        int ret = luaL_dofile(this->luaState, filePath);
+        int ret = luaL_dofile(this->mLuaState, filePath);
         if(ret != LUA_OK) {
             throw std::runtime_error("luaobj load file error,file:"
                                      + std::string(filePath)
-                                     + ",error:" + lua_tostring(this->luaState, -1));
+                                     + ",error:" + lua_tostring(this->mLuaState, -1));
         }
         return true;
     }
 
     luabridge::LuaRef LuaObj::doString(const char *) {
-        return LuaRef::fromStack(this->luaState);
+        return LuaRef::fromStack(this->mLuaState);
     }
 } // namespace luabridge
 
 int logTrace(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::trace(s);
+    shadow::log::trace(s);
     return 1;
 }
 
 int logDebug(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::debug(s);
+    shadow::log::debug(s);
     return 1;
 }
 
 int logInfo(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::info(s);
+    shadow::log::info(s);
     return 1;
 }
 
 int logWarn(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::warn(s);
+    shadow::log::warn(s);
     return 1;
 }
 
 int logError(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::error(s);
+    shadow::log::error(s);
     return 1;
 }
 
 int logCritical(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
-    shadow::Log::critical(s);
+    shadow::log::critical(s);
     return 1;
 }
 

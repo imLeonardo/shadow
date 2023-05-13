@@ -6,20 +6,20 @@
 #include <unordered_map>
 
 #include "define.h"
-#include "singleton.h"
+#include "singleton/singleton.h"
 
 # ifdef SHARED_LIB
 #   ifdef WIN32
 #      ifdef DLLEXPORT
-#        define DLL_API __declspec(dllexport)
+#        define SHADOW_API __declspec(dllexport)
 #      else
-#        define DLL_API __declspec(dllimport)
+#        define SHADOW_API __declspec(dllimport)
 #      endif // !DLLEXPORT
 #   else
-#     define DLL_API
+#     define SHADOW_API
 #   endif // !WIN32
 # else
-#    define DLL_API
+#    define SHADOW_API
 # endif // !SHARED_LIB
 
 namespace shadow {
@@ -40,7 +40,7 @@ namespace shadow {
         bool isVisited;
     };
 
-    class DLL_API Map {
+    class SHADOW_API Map {
     public:
         Map();
 
@@ -71,7 +71,7 @@ namespace shadow {
         MapNode **nodes, *startNode, *endNode;
     };
 
-    class DLL_API MapPath : public shadow::Singleton<MapPath> {
+    class SHADOW_API MapPath : public shadow::Singleton<MapPath> {
     public:
         explicit MapPath(Token);
 

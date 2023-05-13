@@ -60,20 +60,18 @@ extern "C" {
 #include <luabridge/detail/Stack.h>
 #include <luabridge/detail/Namespace.h>
 
-#include "log/log.h"
-
 # ifdef SHARED_LIB
 #   ifdef WIN32
 #      ifdef DLLEXPORT
-#        define DLL_API __declspec(dllexport)
+#        define SHADOW_API __declspec(dllexport)
 #      else
-#        define DLL_API __declspec(dllimport)
+#        define SHADOW_API __declspec(dllimport)
 #      endif // !DLLEXPORT
 #   else
-#     define DLL_API
+#     define SHADOW_API
 #   endif // !WIN32
 # else
-#    define DLL_API
+#    define SHADOW_API
 # endif // !SHARED_LIB
 
 #ifndef LUA_VERSION_NUM
@@ -81,7 +79,7 @@ extern "C" {
 #endif
 
 namespace luabridge {
-    class DLL_API LuaObj {
+    class SHADOW_API LuaObj {
     public:
         LuaObj();
 
@@ -96,14 +94,14 @@ namespace luabridge {
             if(fn == nullptr) {
                 throw std::runtime_error("callFunc error:function name is nullptr");
             }
-            LuaRef func = LuaRef::getglobal(this->luaState, fn);
+            LuaRef func = LuaRef::getglobal(this->mLuaState, fn);
             T ret = func(std::forward<Args>(args)...);
             return ret;
         }
 
     private:
-        lua_State *luaState;
-        int topIndex;
+        lua_State *mLuaState;
+        int mTopIndex;
     };
 } // namespace luabridge
 

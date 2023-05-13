@@ -1,5 +1,5 @@
-#ifndef SHADOW_LOG_H
-#define SHADOW_LOG_H
+#ifndef SHADOW_LOGGER_H
+#define SHADOW_LOGGER_H
 
 #include <cstdio>
 #include <cstdarg>
@@ -9,22 +9,8 @@
 #include <mutex>
 
 #include "define.h"
-#include "singleton.h"
+#include "singleton/singleton.h"
 #include "spdlog/spdlog.h"
-
-# ifdef SHARED_LIB
-#   ifdef WIN32
-#      ifdef DLLEXPORT
-#        define DLL_API __declspec(dllexport)
-#      else
-#        define DLL_API __declspec(dllimport)
-#      endif // !DLLEXPORT
-#   else
-#     define DLL_API
-#   endif // !WIN32
-# else
-#    define DLL_API
-# endif // !SHARED_LIB
 
 namespace shadow {
     enum class LogLevel {
@@ -37,77 +23,79 @@ namespace shadow {
         OFF = spdlog::level::level_enum::off
     };
 
-    class DLL_API Log final {
+    class Logger final: public shadow::Singleton<Logger> {
     private:
-        static std::shared_ptr<spdlog::logger> loggerAll;
-        static std::shared_ptr<spdlog::logger> loggerDailyErr;
+        std::shared_ptr<spdlog::logger> mLoggerAll;
+        std::shared_ptr<spdlog::logger> mLoggerDailyErr;
 
     public:
-        Log() = delete;
+        Logger() = delete;
 
-        Log(const Log &) = delete;
+        Logger(const Logger &) = delete;
 
-        Log &operator=(const Log &) = delete;
+        Logger &operator=(const Logger &) = delete;
 
-        ~Log() noexcept = default;
+        explicit Logger(Singleton<Logger>::Token);
 
-        static ErrCode init(shadow::LogLevel level = shadow::LogLevel::TRACE);
+        ~Logger() noexcept override = default;
 
-        static ErrCode setLogLevel(shadow::LogLevel);
+        ErrCode init(shadow::LogLevel level = shadow::LogLevel::TRACE);
 
-        static ErrCode release();
+        ErrCode setLogLevel(shadow::LogLevel);
+
+        ErrCode release();
 
         template<class... Args>
-        static void trace(const char *fmt, Args &&... args) {
+        void trace(const char *fmt, Args &&... args) {
             try {
-                loggerAll->trace(fmt, std::forward<Args>(args)...);
+                mLoggerAll->trace(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log trace failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        static void debug(const char *fmt, Args &&... args) {
+        void debug(const char *fmt, Args &&... args) {
             try {
-                loggerAll->debug(fmt, std::forward<Args>(args)...);
+                mLoggerAll->debug(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log debug failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        static void info(const char *fmt, Args &&... args) {
+        void info(const char *fmt, Args &&... args) {
             try {
-                loggerAll->info(fmt, std::forward<Args>(args)...);
+                mLoggerAll->info(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log info failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        static void warn(const char *fmt, Args &&... args) {
+        void warn(const char *fmt, Args &&... args) {
             try {
-                loggerAll->warn(fmt, std::forward<Args>(args)...);
+                mLoggerAll->warn(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log warn failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        static void error(const char *fmt, Args &&... args) {
+        void error(const char *fmt, Args &&... args) {
             try {
-                loggerAll->error(fmt, std::forward<Args>(args)...);
-                loggerDailyErr->error(fmt, std::forward<Args>(args)...);
+                mLoggerAll->error(fmt, std::forward<Args>(args)...);
+                mLoggerDailyErr->error(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log error failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        static void critical(const char *fmt, Args &&... args) {
+        void critical(const char *fmt, Args &&... args) {
             try {
-                loggerAll->critical(fmt, std::forward<Args>(args)...);
-                loggerDailyErr->critical(fmt, std::forward<Args>(args)...);
+                mLoggerAll->critical(fmt, std::forward<Args>(args)...);
+                mLoggerDailyErr->critical(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
                 std::cout << "log critical failed:" << ex.what() << std::endl;
             }
@@ -115,4 +103,4 @@ namespace shadow {
     };
 } // namespace shadow
 
-#endif // !SHADOW_LOG_H
+#endif // !SHADOW_LOGGER_H

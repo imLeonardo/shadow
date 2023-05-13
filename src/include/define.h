@@ -15,7 +15,7 @@ enum class Color {
     GREEN,
 };
 
-enum class ServerState {
+enum class AppState {
     UNDEFINED,
     INIT,
     START,

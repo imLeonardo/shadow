@@ -6,21 +6,21 @@
 # ifdef SHARED_LIB
 #   ifdef WIN32
 #      ifdef DLLEXPORT
-#        define DLL_API __declspec(dllexport)
+#        define SHADOW_API __declspec(dllexport)
 #      else
-#        define DLL_API __declspec(dllimport)
+#        define SHADOW_API __declspec(dllimport)
 #      endif // !DLLEXPORT
 #   else
-#     define DLL_API
+#     define SHADOW_API
 #   endif // !WIN32
 # else
-#    define DLL_API
+#    define SHADOW_API
 # endif // !SHARED_LIB
 
 namespace shadow {
     // 单例基类
     template<class T>
-    class DLL_API Singleton {
+    class Singleton {
     public:
         Singleton(const Singleton &) = delete;
 
@@ -29,14 +29,15 @@ namespace shadow {
         virtual ~Singleton() noexcept = default;
 
         static T &instance() noexcept(std::is_nothrow_constructible<T>::value) {
-            static T instance { Token() };
+            static T instance{Token()};
             return instance;
         }
 
     protected:
         Singleton() noexcept = default;
 
-        struct Token {};
+        struct Token {
+        };
     };
 }
 

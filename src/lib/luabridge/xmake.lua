@@ -13,4 +13,5 @@ target("luabridge", function()
     add_deps("log")
 
     add_packages("lua")
+    add_packages("spdlog")
 end)

@@ -7,5 +7,9 @@ target("thread", function()
         add_defines("WIN32", "_WIN32", "DLLEXPORT")
     end
 
+    add_deps("singleton")
     add_deps("log")
+    add_deps("configure")
+
+    add_packages("spdlog", {configs = {public = true}})
 end)

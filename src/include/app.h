@@ -5,14 +5,8 @@
 #define SHADOW_APP_H
 
 #include "define.h"
-#include "singleton.h"
+#include "singleton/singleton.h"
 #include "luabridge/luabridge.h"
-
-extern "C" {
-#include "lua.h"
-#include "lualib.h"
-#include "lauxlib.h"
-};
 
 namespace shadow {
     class App final : public Singleton<App> {
@@ -61,19 +55,19 @@ namespace shadow {
         * 获取服务器状态
         * @return server_state
         */
-        ServerState getServerState();
+        AppState getState();
 
     protected:
 
     private:
-        std::atomic<ServerState> serverState;
-        std::map<int, luabridge::LuaObj*> luaObjs;
+        std::atomic<AppState> mState;
+        std::map<int, luabridge::LuaObj*> mLuaObjs;
 
         /*
         * 设置服务器状态
         * @return errcode
         */
-        ErrCode setServerState(const ServerState &);
+        ErrCode setState(const AppState &state);
 
         bool isRunning();
     };

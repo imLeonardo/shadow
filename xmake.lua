@@ -38,15 +38,20 @@ target("shadow", function()
     add_packages("protobuf-cpp")
     add_files("src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "src/proto"})
 
-    add_defines("SHARED_LIB")
+    --add_defines("SHARED_LIB")
     if is_plat("windows") then
         add_defines("WIN32", "_WIN32", "DLLEXPORT")
     end
 
+    add_deps("singleton")
     add_deps("log")
+    add_deps("configure")
     add_deps("util")
     add_deps("luabridge")
     add_deps("net")
     add_deps("thread")
-    add_deps("map")
+    --add_deps("map")
+
+    add_packages("spdlog")
+    add_packages("lua")
 end)

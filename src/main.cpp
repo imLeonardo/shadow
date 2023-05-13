@@ -1,10 +1,11 @@
 #include <cstdlib>
 #include <csignal>
 
-#include "config.h"
+#include "configure/configure_interface.h"
+#include "log/log_interface.h"
 #include "app.h"
 #include "thread/pool.h"
-#include "net/epoll.h"
+#include "net/net_interface.h"
 
 void signalHandler(int sig) {
     switch(sig) {
@@ -12,11 +13,11 @@ void signalHandler(int sig) {
             try {
                 shadow::App::instance().stop();
             } catch(const std::exception &err) {
-                shadow::Log::critical(err.what());
+                shadow::log::critical(err.what());
             }
             break;
         case SIGSEGV:
-            shadow::Log::critical("segment violation");
+            shadow::log::critical("segment violation");
             break;
         default:
             break;
@@ -30,38 +31,38 @@ void initSignalHandler() {
 
 int main(int argc, char *argv[]) {
     try {
-        shadow::Log::init();
+        shadow::log::init();
 
         if(argc <= 1) {
-            shadow::Log::error("please input config file");
+            shadow::log::error("please input config file");
             return EXIT_FAILURE;
         }
 
         initSignalHandler();
 
-        shadow::Config::instance().readConfigFile(argv[1]);
+        shadow::config::init(argv[1]);
 
-        std::locale::global(std::locale(shadow::Config::instance().getLocale()));
+//        std::locale::global(std::locale(shadow::config::getLocale()));
+//
+//        shadow::log::setLogLevel(shadow::config::getLogLevel());
+//
+//        shadow::thread::Pool::instance().createThread(shadow::config::getThreadNum());
 
-        shadow::Log::setLogLevel(shadow::Config::instance().getLogLevel());
-
-        shadow::thread::Pool::instance().createThread(shadow::Config::instance().getThreadNum());
-
-        shadow::net::Epoll::instance();
+//        shadow::net::Epoll::instance();
 
         shadow::App::instance().init();
         shadow::App::instance().start();
         shadow::App::instance().run();
         shadow::App::instance().exit();
 
-        shadow::net::Epoll::instance().release();
+//        shadow::net::Epoll::instance().release();
 
         shadow::thread::Pool::instance().release();
     } catch(const std::exception &err) {
-        shadow::Log::critical(err.what());
+        shadow::log::critical(err.what());
     }
 
-    shadow::Log::release();
+    shadow::log::release();
 
     return EXIT_SUCCESS;
 }

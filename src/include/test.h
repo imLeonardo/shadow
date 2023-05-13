@@ -1,8 +1,8 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "singleton.h"
-#include "log/log.h"
+#include "singleton/singleton.h"
+#include "log/log_interface.h"
 #include "util/util.h"
 
 class A : public shadow::Singleton<A> {
