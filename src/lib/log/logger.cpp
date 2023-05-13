@@ -11,27 +11,29 @@ namespace shadow {
 
     }
 
+    void Logger::createLoggerAll(shadow::LogLevel level) {
+        auto sinkStdout = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+        auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 0, 0);
+        spdlog::sinks_init_list sinks { sinkStdout, sinkDailyAll };
+        this->mLoggerAll = std::make_shared<spdlog::async_logger>("mLoggerAll", sinks, spdlog::thread_pool());
+        this->mLoggerAll->set_level((spdlog::level::level_enum)level);
+        this->mLoggerAll->set_pattern(this->mPattern);
+        this->mLoggerAll->enable_backtrace(this->mBacktraceNum);
+        spdlog::register_logger(this->mLoggerAll);
+    }
+
+    void Logger::createLoggerError() {
+        this->mLoggerDailyErr = spdlog::daily_logger_mt("mLoggerDailyErr", "logs/error.log", 0, 0);
+        this->mLoggerDailyErr->set_level(spdlog::level::err);
+        this->mLoggerDailyErr->set_pattern(this->mPattern);
+        this->mLoggerDailyErr->enable_backtrace(this->mBacktraceNum);
+    }
+
     ErrCode Logger::init(shadow::LogLevel level) {
         try {
-            // 设置线程
             spdlog::init_thread_pool(1024, 1);
-            // 输出
-            auto sinkStdout = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-            auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 0, 0);
-            spdlog::sinks_init_list sinks { sinkStdout, sinkDailyAll };
-            const char *pattern = "%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$";
-            mLoggerAll = std::make_shared<spdlog::async_logger>("mLoggerAll", sinks, spdlog::thread_pool());
-            mLoggerAll->set_level((spdlog::level::level_enum)level);
-            mLoggerAll->set_pattern(pattern);
-            mLoggerAll->enable_backtrace(32);
-            spdlog::register_logger(mLoggerAll);
-
-            // 错误日志文件
-            mLoggerDailyErr = spdlog::daily_logger_mt("mLoggerDailyErr", "logs/error.log", 2, 0);
-            mLoggerDailyErr->set_level(spdlog::level::err);
-            mLoggerDailyErr->set_pattern(pattern);
-            mLoggerDailyErr->enable_backtrace(32);
-            spdlog::register_logger(mLoggerDailyErr);
+            this->createLoggerAll(level);
+            this->createLoggerError();
 
             return ErrCode::SUCCESS;
         } catch(const spdlog::spdlog_ex &ex) {
@@ -42,7 +44,7 @@ namespace shadow {
     }
 
     ErrCode Logger::setLogLevel(shadow::LogLevel logLevel) {
-        mLoggerAll->set_level((spdlog::level::level_enum)logLevel);
+        this->mLoggerAll->set_level((spdlog::level::level_enum)logLevel);
         //
         return ErrCode::SUCCESS;
     }

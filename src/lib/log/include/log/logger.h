@@ -25,8 +25,14 @@ namespace shadow {
 
     class Logger final: public shadow::Singleton<Logger> {
     private:
+        int mBacktraceNum = 32;
+        const char *mPattern = "%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$";
         std::shared_ptr<spdlog::logger> mLoggerAll;
         std::shared_ptr<spdlog::logger> mLoggerDailyErr;
+
+        void createLoggerAll(shadow::LogLevel);
+
+        void createLoggerError();
 
     public:
         Logger() = delete;

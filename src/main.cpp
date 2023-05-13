@@ -31,7 +31,10 @@ void initSignalHandler() {
 
 int main(int argc, char *argv[]) {
     try {
-        shadow::log::init();
+        ErrCode ret = shadow::log::init();
+        if(ret != ErrCode::SUCCESS) {
+            return EXIT_FAILURE;
+        }
 
         if(argc <= 1) {
             shadow::log::error("please input config file");
