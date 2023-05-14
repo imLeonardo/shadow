@@ -7,7 +7,11 @@
 #include "spdlog/sinks/daily_file_sink.h"
 
 namespace shadow {
-    Logger::Logger(Singleton<Logger>::Token) {
+    Logger::Logger(Singleton<Logger>::Token):
+    mQsize(1024),
+    mThreadNum(4),
+    mBacktraceNum(32),
+    mPattern("%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$") {
 
     }
 
@@ -31,7 +35,7 @@ namespace shadow {
 
     ErrCode Logger::init(shadow::LogLevel level) {
         try {
-            spdlog::init_thread_pool(1024, 4);
+            spdlog::init_thread_pool(this->mQsize, this->mThreadNum);
             this->createLoggerAll(level);
             this->createLoggerError();
 

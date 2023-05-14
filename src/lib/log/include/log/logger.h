@@ -25,8 +25,10 @@ namespace shadow {
 
     class Logger final: public shadow::Singleton<Logger> {
     private:
-        int mBacktraceNum = 32;
-        const char *mPattern = "%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$";
+        int mQsize;
+        int mThreadNum;
+        int mBacktraceNum;
+        const char *mPattern;
         std::shared_ptr<spdlog::logger> mLoggerAll;
         std::shared_ptr<spdlog::logger> mLoggerDailyErr;
 
