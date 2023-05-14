@@ -8,19 +8,19 @@
 
 namespace shadow {
     Logger::Logger(Singleton<Logger>::Token):
-    mQsize(1024),
-    mThreadNum(4),
-    mBacktraceNum(32),
-    mPattern("%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$") {
+            mQsize(1024),
+            mThreadNum(4),
+            mBacktraceNum(32),
+            mPattern("%^[%Y-%m-%d %H:%M:%S.%e][%t][%l] %v%$") {
 
     }
 
     void Logger::createLoggerAll(shadow::LogLevel level) {
         auto sinkStdout = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
         auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 0, 0);
-        spdlog::sinks_init_list sinks { sinkStdout, sinkDailyAll };
+        spdlog::sinks_init_list sinks{sinkStdout, sinkDailyAll};
         this->mLoggerAll = std::make_shared<spdlog::async_logger>("mLoggerAll", sinks, spdlog::thread_pool());
-        this->mLoggerAll->set_level((spdlog::level::level_enum)level);
+        this->mLoggerAll->set_level((spdlog::level::level_enum) level);
         this->mLoggerAll->set_pattern(this->mPattern);
         this->mLoggerAll->enable_backtrace(this->mBacktraceNum);
         spdlog::register_logger(this->mLoggerAll);
@@ -48,7 +48,7 @@ namespace shadow {
     }
 
     ErrCode Logger::setLogLevel(shadow::LogLevel logLevel) {
-        this->mLoggerAll->set_level((spdlog::level::level_enum)logLevel);
+        this->mLoggerAll->set_level((spdlog::level::level_enum) logLevel);
         //
         return ErrCode::SUCCESS;
     }
