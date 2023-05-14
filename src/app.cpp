@@ -5,10 +5,10 @@
 #include <stack>
 #include <thread>
 
-#include "configure/configure_interface.h"
-#include "log/log_interface.h"
+#include "configure/interface.h"
+#include "log/interface.h"
 #include "util/util.h"
-#include "thread/pool.h"
+#include "threadpool/interface.h"
 //#include "map/map.h"
 
 namespace shadow {
@@ -56,7 +56,7 @@ namespace shadow {
 //        });
 
         for(int i = 0; i < 10; i++) {
-            shadow::thread::Pool::instance().addTask("add work thread", [this, &i]() {
+            shadow::threadpool::addTask("add work thread", [this, &i]() {
 //                this->m_luaobjs.insert(std::make_pair<int, luabridge::luaobj>(i, luabridge::luaobj()));
 //                this->m_luaobjs.at(i).loadfile("script/lua/test1.lua");
 //                auto ret = this->m_luaobjs.at(i).call_func<luabridge::LuaRef>("test_add");
@@ -69,7 +69,7 @@ namespace shadow {
             });
         }
 
-        shadow::thread::Pool::instance().joinAll();
+        shadow::threadpool::joinAll();
 
         return ErrCode::SUCCESS;
     }
@@ -99,7 +99,7 @@ namespace shadow {
             this->mLuaObjs.erase(it++);
         }
 
-        shadow::thread::Pool::instance().release();
+        shadow::threadpool::release();
 
         return ErrCode::SUCCESS;
     }

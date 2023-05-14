@@ -38,7 +38,7 @@ local function quickSort(t, left, right)
 end
 
 function loadFile(configfile)
-    log:info("load config file: %s.", configfile)
+    log:info("load config file: %s", configfile)
     configfile = string.gsub(configfile, ".lua", "")
     config = require(configfile)
     local t = { 1, 3, 3, 3, 5, 7, 9, 11, 2, 4, 6, 8, 10 }

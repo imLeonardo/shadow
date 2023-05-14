@@ -1,4 +1,4 @@
-#include "log/log_interface.h"
+#include "log/interface.h"
 
 #include "log/logger.h"
 

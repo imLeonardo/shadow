@@ -49,7 +49,7 @@ target("shadow", function()
     add_deps("util")
     add_deps("luabridge")
     add_deps("net")
-    add_deps("thread")
+    add_deps("threadpool")
     --add_deps("map")
 
     add_packages("spdlog")

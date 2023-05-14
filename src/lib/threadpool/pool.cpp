@@ -1,12 +1,12 @@
-#include "thread/pool.h"
+#include "threadpool/pool.h"
 
 #include "define.h"
 
 namespace shadow {
-    namespace thread {
+    namespace threadpool {
         // the constructor just launches some amount of workers
         Pool::Pool(Singleton<Pool>::Token) : mIsRunning(true) {
-            shadow::log::info("construct thread pool");
+            shadow::log::info("construct threadpool");
         }
 
         void Pool::createThread(thread_num_t num) {
@@ -38,7 +38,7 @@ namespace shadow {
         }
 
         void Pool::release() {
-            shadow::log::info("thread pool release");
+            shadow::log::info("threadpool release");
             this->mIsRunning = false;
             this->mCondition.notify_all();
         }

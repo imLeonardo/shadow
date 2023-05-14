@@ -1,7 +1,7 @@
 #ifndef SHADOW_UTIL_H
 #define SHADOW_UTIL_H
 
-#include "log/log_interface.h"
+#include "log/interface.h"
 
 # ifdef SHARED_LIB
 #   ifdef WIN32

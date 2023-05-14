@@ -2,7 +2,7 @@
 #define TEST_H
 
 #include "singleton/singleton.h"
-#include "log/log_interface.h"
+#include "log/interface.h"
 #include "util/util.h"
 
 class A : public shadow::Singleton<A> {

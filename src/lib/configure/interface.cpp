@@ -1,4 +1,4 @@
-#include "configure/configure_interface.h"
+#include "configure/interface.h"
 
 #include "configure/configure.h"
 
@@ -12,12 +12,12 @@ namespace shadow {
             shadow::Configure::instance().print();
         }
 
-        SHADOW_API int getint(const char *key) {
-            return shadow::Configure::instance().getint(key);
+        SHADOW_API int getInt(const char *key) {
+            return shadow::Configure::instance().getInt(key);
         }
 
-        SHADOW_API const char *getstring(const char *key) {
-            return shadow::Configure::instance().getstring(key);
+        SHADOW_API const char *getString(const char *key) {
+            return shadow::Configure::instance().getString(key);
         }
     }
 }

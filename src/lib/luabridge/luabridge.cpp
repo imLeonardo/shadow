@@ -1,9 +1,10 @@
 #include "luabridge/luabridge.h"
 
-#include "log/log_interface.h"
+#include "log/interface.h"
 
 namespace luabridge {
-    LuaObj::LuaObj() : mLuaState(luaL_newstate()), mTopIndex(0) {
+    LuaObj::LuaObj(): mLuaState(luaL_newstate()), mTopIndex(0) {
+        shadow::log::init();
         shadow::log::debug("luaobj");
         luaL_openlibs(this->mLuaState);
     }
@@ -32,53 +33,54 @@ namespace luabridge {
     }
 } // namespace luabridge
 
-int logTrace(lua_State *luaState) {
+static int logTrace(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::trace(s);
     return 1;
 }
 
-int logDebug(lua_State *luaState) {
+static int logDebug(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::debug(s);
     return 1;
 }
 
-int logInfo(lua_State *luaState) {
+static int logInfo(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::info(s);
     return 1;
 }
 
-int logWarn(lua_State *luaState) {
+static int logWarn(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::warn(s);
     return 1;
 }
 
-int logError(lua_State *luaState) {
+static int logError(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::error(s);
     return 1;
 }
 
-int logCritical(lua_State *luaState) {
+static int logCritical(lua_State *luaState) {
     const char *s = luaL_tolstring(luaState, 1, nullptr);
     shadow::log::critical(s);
     return 1;
 }
 
-int luaopen_luabridge_clog(lua_State *lua_state) {
-    const luaL_Reg lib[] = {
-            { "trace",    logTrace },
-            { "debug",    logDebug },
-            { "info",     logInfo },
-            { "warn",     logWarn },
-            { "error",    logError },
-            { "critical", logCritical },
-            { nullptr,    nullptr }
+int luaopen_luabridge_clog(lua_State *luaState) {
+    luaL_checkversion(luaState);
+    const luaL_Reg l[] = {
+            {"trace",    logTrace},
+            {"debug",    logDebug},
+            {"info",     logInfo},
+            {"warn",     logWarn},
+            {"error",    logError},
+            {"critical", logCritical},
+            {nullptr,    nullptr}
     };
-    luaL_newlib(lua_state, lib);
+    luaL_newlib(luaState, l);
 
     return 1;
 }

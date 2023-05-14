@@ -1,5 +1,5 @@
-#ifndef SHADOW_CONFIGURE_INTERFACE_H
-#define SHADOW_CONFIGURE_INTERFACE_H
+#ifndef SHADOW_NET_INTERFACE_H
+#define SHADOW_NET_INTERFACE_H
 
 # ifdef SHARED_LIB
 #   ifdef WIN32
@@ -16,15 +16,9 @@
 # endif // !SHARED_LIB
 
 namespace shadow {
-    namespace config {
-        SHADOW_API void init(const char *);
-
-        SHADOW_API void print();
-
-        SHADOW_API int getint(const char *);
-
-        SHADOW_API const char* getstring(const char *);
+    namespace net {
+        SHADOW_API void init();
     }
 }
 
-#endif //SHADOW_CONFIGURE_INTERFACE_H
+#endif //SHADOW_INTERFACE_H

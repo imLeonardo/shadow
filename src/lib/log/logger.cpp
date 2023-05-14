@@ -31,7 +31,7 @@ namespace shadow {
 
     ErrCode Logger::init(shadow::LogLevel level) {
         try {
-            spdlog::init_thread_pool(1024, 1);
+            spdlog::init_thread_pool(1024, 4);
             this->createLoggerAll(level);
             this->createLoggerError();
 

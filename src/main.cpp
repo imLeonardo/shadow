@@ -1,11 +1,11 @@
 #include <cstdlib>
 #include <csignal>
 
-#include "configure/configure_interface.h"
-#include "log/log_interface.h"
+#include "configure/interface.h"
+#include "log/interface.h"
 #include "app.h"
-#include "thread/pool.h"
-#include "net/net_interface.h"
+#include "threadpool/interface.h"
+#include "net/interface.h"
 
 void signalHandler(int sig) {
     switch(sig) {
@@ -47,9 +47,9 @@ int main(int argc, char *argv[]) {
 
 //        std::locale::global(std::locale(shadow::config::getLocale()));
 //
-//        shadow::log::setLogLevel(shadow::config::getLogLevel());
+        shadow::log::setLogLevel(shadow::config::getInt("loglevel"));
 //
-//        shadow::thread::Pool::instance().createThread(shadow::config::getThreadNum());
+//        shadow::threadpool::createThread(shadow::config::getThreadNum());
 
 //        shadow::net::Epoll::instance();
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 
 //        shadow::net::Epoll::instance().release();
 
-        shadow::thread::Pool::instance().release();
+        shadow::threadpool::release();
     } catch(const std::exception &err) {
         shadow::log::critical(err.what());
     }

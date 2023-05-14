@@ -11,7 +11,7 @@
 #include <stdexcept>
 
 #include "singleton/singleton.h"
-#include "log/log_interface.h"
+#include "log/interface.h"
 
 # ifdef SHARED_LIB
 #   ifdef WIN32
@@ -28,7 +28,7 @@
 # endif // !SHARED_LIB
 
 namespace shadow {
-    namespace thread {
+    namespace threadpool {
         class SHADOW_API Pool final: public shadow::Singleton<Pool> {
         public:
             explicit Pool(Singleton<Pool>::Token);
@@ -55,8 +55,8 @@ namespace shadow {
 
         // add new task to the queue
         template<class F, class... Args>
-        auto Pool::addTask(const char *way, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
-            shadow::log::info("pool add task,way:{}", way);
+        auto Pool::addTask(const char *why, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
+            shadow::log::info("pool add task,way:{}", why);
             using return_type = typename std::result_of<F(Args...)>::type;
 
             auto task = std::make_shared<std::packaged_task<return_type()>>(

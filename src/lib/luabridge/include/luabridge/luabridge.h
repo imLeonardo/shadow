@@ -105,20 +105,20 @@ namespace luabridge {
     };
 } // namespace luabridge
 
-int logTrace(lua_State *);
+static int logTrace(lua_State *);
 
-int logDebug(lua_State *);
+static int logDebug(lua_State *);
 
-int logInfo(lua_State *);
+static int logInfo(lua_State *);
 
-int logWarn(lua_State *);
+static int logWarn(lua_State *);
 
-int logError(lua_State *);
+static int logError(lua_State *);
 
-int logCritical(lua_State *);
+static int logCritical(lua_State *);
 
 LUAMOD_API "C" {
-int luaopen_luabridge_clog(lua_State *);
+SHADOW_API int luaopen_luabridge_clog(lua_State *);
 };
 
 #endif // !LUABRIDGE_LUABRIDGE_H

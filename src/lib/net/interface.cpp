@@ -1,4 +1,4 @@
-#include "net/net_interface.h"
+#include "net/interface.h"
 
 #include "net/socket.h"
 

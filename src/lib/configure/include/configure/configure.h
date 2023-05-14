@@ -14,9 +14,9 @@ namespace shadow {
 
         void print();
 
-        int getint(const char *);
+        int getInt(const char *);
 
-        const char* getstring(const char *);
+        const char* getString(const char *);
     private:
         std::shared_ptr<luabridge::LuaObj> mObj;
         const char *mConfigFile;

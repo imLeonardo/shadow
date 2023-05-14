@@ -2,7 +2,7 @@
 
 #include "configure/configure.h"
 
-#include "log/log_interface.h"
+#include "log/interface.h"
 #include "util/util.h"
 #include "luabridge/luabridge.h"
 
@@ -18,18 +18,19 @@ namespace shadow {
         this->mConfigFile = configFilePath;
         this->mObj = std::make_shared<luabridge::LuaObj>();
         this->mObj->loadFile("script/lua/load_configfile.lua");
+        this->mObj->callFunc<luabridge::LuaRef>("loadFile", configFilePath);
     }
 
     void Configure::print() {
         this->mObj->callFunc<luabridge::LuaRef>("printConfig");
     }
 
-    int Configure::getint(const char *key) {
+    int Configure::getInt(const char *key) {
         auto config = mObj->callFunc<luabridge::LuaRef>("getConfig", this->mConfigFile);
         return config[key].cast<int>();
     }
 
-    const char *Configure::getstring(const char *key) {
+    const char *Configure::getString(const char *key) {
         auto config = mObj->callFunc<luabridge::LuaRef>("getConfig", this->mConfigFile);
         return config[key].cast<const char *>();
     }
