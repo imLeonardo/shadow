@@ -12,7 +12,7 @@
 //#include "map/map.h"
 
 namespace shadow {
-    App::App(Singleton<App>::Token) : mState(AppState::UNDEFINED) {
+    App::App(Singleton<App>::Token): mState(AppState::UNDEFINED) {
 
     }
 
@@ -62,7 +62,7 @@ namespace shadow {
 //                auto ret = this->m_luaobjs.at(i).call_func<luabridge::LuaRef>("test_add");
                 this->mLuaObjs.insert(std::make_pair<int, luabridge::LuaObj *>(std::move(i), new luabridge::LuaObj));
                 while(this->isRunning()) {
-                    int a[] = { 1, 2, 3, 4, 5 };
+                    int a[] = {1, 2, 3, 4, 5};
                     shadow::log::info("a's length is {},n:{}", util::arrayLength(a), i);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 }
@@ -92,7 +92,7 @@ namespace shadow {
         shadow::log::info("server begin stop");
         this->setState(AppState::STOP);
 
-        std::map<int, luabridge::LuaObj*>::iterator it;
+        std::map<int, luabridge::LuaObj *>::iterator it;
         for(it = this->mLuaObjs.begin(); it != this->mLuaObjs.end();) {
             delete it->second;
             this->mLuaObjs.erase(it++);
@@ -126,7 +126,7 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::setState(const AppState &state) {
-        shadow::log::info("set app state {}", (int)state);
+        shadow::log::info("set app state {}", (int) state);
         this->mState = state;
 
         return ErrCode::SUCCESS;
