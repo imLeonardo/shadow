@@ -45,20 +45,16 @@ int main(int argc, char *argv[]) {
 
         shadow::config::init(argv[1]);
 
-//        std::locale::global(std::locale(shadow::config::getLocale()));
-//
-        shadow::log::setLogLevel(shadow::config::getInt("loglevel"));
-//
-//        shadow::threadpool::createThread(shadow::config::getThreadNum());
+        std::locale::global(std::locale(shadow::config::getString("locale")));
 
-//        shadow::net::Epoll::instance();
+        shadow::log::setLogLevel(shadow::config::getInt("loglevel"));
+
+        shadow::threadpool::createThread(shadow::config::getInt("threadnum"));
 
         shadow::App::instance().init();
         shadow::App::instance().start();
         shadow::App::instance().run();
         shadow::App::instance().exit();
-
-//        shadow::net::Epoll::instance().release();
 
         shadow::threadpool::release();
     } catch(const std::exception &err) {

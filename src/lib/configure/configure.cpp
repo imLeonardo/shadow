@@ -7,7 +7,7 @@
 #include "luabridge/luabridge.h"
 
 namespace shadow {
-    Configure::Configure(Singleton<Configure>::Token) {
+    Configure::Configure(Singleton<Configure>::Token): mObj(nullptr), mConfig(nullptr) {
 
     }
 
@@ -15,10 +15,11 @@ namespace shadow {
         if(configFilePath == nullptr) {
             throw std::runtime_error("Configure file is null");
         }
-        this->mConfigFile = configFilePath;
         this->mObj = std::make_shared<luabridge::LuaObj>();
         this->mObj->loadFile("script/lua/load_configfile.lua");
         this->mObj->callFunc<luabridge::LuaRef>("loadFile", configFilePath);
+//        this->mConfig = std::make_shared<luabridge::LuaRef>(mObj->callFunc<luabridge::LuaRef>("getConfig", configFilePath));
+        this->mConfig = mObj->callFunc<luabridge::LuaRef>("getConfig");
     }
 
     void Configure::print() {
@@ -26,12 +27,10 @@ namespace shadow {
     }
 
     int Configure::getInt(const char *key) {
-        auto config = mObj->callFunc<luabridge::LuaRef>("getConfig", this->mConfigFile);
-        return config[key].cast<int>();
+        return this->mConfig[key].cast<int>();
     }
 
     const char *Configure::getString(const char *key) {
-        auto config = mObj->callFunc<luabridge::LuaRef>("getConfig", this->mConfigFile);
-        return config[key].cast<const char *>();
+        return this->mConfig[key].cast<const char *>();
     }
 } // namespace shadow

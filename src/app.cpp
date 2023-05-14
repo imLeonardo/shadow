@@ -61,14 +61,13 @@ namespace shadow {
 //                this->m_luaobjs.at(i).loadfile("script/lua/test1.lua");
 //                auto ret = this->m_luaobjs.at(i).call_func<luabridge::LuaRef>("test_add");
                 this->mLuaObjs.insert(std::make_pair<int, luabridge::LuaObj *>(std::move(i), new luabridge::LuaObj));
-                while(App::instance().isRunning()) {
+                while(this->isRunning()) {
                     int a[] = { 1, 2, 3, 4, 5 };
                     shadow::log::info("a's length is {},n:{}", util::arrayLength(a), i);
                     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
                 }
             });
         }
-
         shadow::threadpool::joinAll();
 
         return ErrCode::SUCCESS;
