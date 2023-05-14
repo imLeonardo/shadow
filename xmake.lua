@@ -54,4 +54,10 @@ target("shadow", function()
 
     add_packages("spdlog")
     add_packages("lua")
+
+    after_build(function(target)
+        print("$(buildir)/$(target)")
+        --os.cp("conf", "$(buildir)/")
+        --os.cp("script", "$(buildir)/")
+    end)
 end)
