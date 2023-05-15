@@ -2,6 +2,9 @@ add_requires("spdlog")
 
 target("log", function()
     set_kind("static")
+
+    add_packages("spdlog", {configs = {public = true}})
+
     add_files("*.cpp")
     add_includedirs("include", {public = true})
 
@@ -10,6 +13,4 @@ target("log", function()
     end
 
     add_deps("singleton")
-
-    add_packages("spdlog", {configs = {public = true}})
 end)

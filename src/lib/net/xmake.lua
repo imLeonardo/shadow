@@ -2,6 +2,10 @@ add_requires("asio")
 
 target("net", function()
     set_kind("shared")
+    add_packages("asio")
+    add_packages("spdlog")
+    add_packages("lua")
+
     add_files("*.cpp")
     add_includedirs("include", {public = true})
 
@@ -13,8 +17,4 @@ target("net", function()
     add_deps("singleton")
     add_deps("log")
     add_deps("configure")
-
-    add_packages("asio")
-    add_packages("spdlog")
-    add_packages("lua")
 end)

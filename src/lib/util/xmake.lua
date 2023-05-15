@@ -1,5 +1,8 @@
 target("util", function()
     set_kind("static")
+
+    add_packages("spdlog")
+
     add_files("*.cpp")
     add_includedirs("include", { public = true })
 
@@ -8,6 +11,4 @@ target("util", function()
     end
 
     add_deps("log")
-
-    add_packages("spdlog")
 end)

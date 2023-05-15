@@ -33,9 +33,11 @@ add_includedirs("src/include")
 
 target("shadow", function()
     set_kind("binary")
-    add_files("src/*.cpp")
-
     add_packages("protobuf-cpp")
+    add_packages("spdlog")
+    add_packages("lua")
+
+    add_files("src/*.cpp")
     add_files("src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "src/proto"})
 
     --add_defines("SHARED_LIB")
@@ -52,11 +54,8 @@ target("shadow", function()
     add_deps("threadpool")
     --add_deps("map")
 
-    add_packages("spdlog")
-    add_packages("lua")
-
     after_build(function(target)
-        print("$(buildir)/$(target)")
+        print("$(buildir)/")
         --os.cp("conf", "$(buildir)/")
         --os.cp("script", "$(buildir)/")
     end)

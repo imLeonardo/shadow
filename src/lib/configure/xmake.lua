@@ -1,5 +1,9 @@
 target("configure", function()
     set_kind("static")
+
+    add_packages("lua")
+    add_packages("spdlog")
+
     add_files("*.cpp")
     add_includedirs("include", {public = true})
 
@@ -11,7 +15,4 @@ target("configure", function()
     add_deps("log")
     add_deps("util")
     add_deps("luabridge")
-
-    add_packages("lua")
-    add_packages("spdlog")
 end)

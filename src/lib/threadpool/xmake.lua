@@ -1,5 +1,8 @@
 target("threadpool", function()
     set_kind("static")
+
+    add_packages("spdlog", {configs = {public = true}})
+
     add_files("*.cpp")
     add_includedirs("include", {public = true})
 
@@ -10,6 +13,4 @@ target("threadpool", function()
     add_deps("singleton")
     add_deps("log")
     add_deps("configure")
-
-    add_packages("spdlog", {configs = {public = true}})
 end)

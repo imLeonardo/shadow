@@ -2,6 +2,10 @@ add_requires("lua")
 
 target("luabridge", function()
     set_kind("shared")
+
+    add_packages("lua")
+    add_packages("spdlog")
+
     add_files("*.cpp")
     add_includedirs("include", {public = true})
 
@@ -11,7 +15,4 @@ target("luabridge", function()
     end
 
     add_deps("log")
-
-    add_packages("lua")
-    add_packages("spdlog")
 end)
