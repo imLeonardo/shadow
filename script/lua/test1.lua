@@ -18,7 +18,7 @@ function public.getPrivate()
     return private
 end
 
-function public.get_name()
+function public.getName()
     return private.score
 end
 
