@@ -1,9 +1,9 @@
 let s = "abcd";
 let list = [1, 2, 3, 4, 5, 6, 7];
 let t = {
-    1:function(n:boolean, i:number = 10) {
+    1:function (n:boolean, i:number = 10) {
         console.log("11111");
-        if(n) {
+        if (n) {
             console.log("true" + i);
             return 1;
         } else {
@@ -14,17 +14,16 @@ let t = {
 }
 console.log(s);
 console.log({
-    1:1,
-    2:2,
-    3:3,
+    1:1, 2:2, 3:3,
 });
 t[1](false);
 
 function sum(...nums:number[]):number {
     let ret:number = 0;
-    for(let i of nums) {
+    for (let i of nums) {
         ret += i;
     }
     return ret
 }
-console.log(sum(1,2,3,4,5,6,7,8))
+
+console.log(sum(1, 2, 3, 4, 5, 6, 7, 8))

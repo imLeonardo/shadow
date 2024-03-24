@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from "fs";
 
 function walk(path:string, fileName:string) {
     const filePath = path + '/' + fileName;
@@ -15,9 +15,9 @@ function walk(path:string, fileName:string) {
             newFilePath += "-" + fileNameArray[2];
         }
         console.log(newFilePath);
-        fs.rename(filePath, newFilePath, function (ret, err) {
-            console.error(err);
-        });
+        // fs.rename(filePath, newFilePath, function (ret, err) {
+        //     console.error(err);
+        // });
     }
 }
 
