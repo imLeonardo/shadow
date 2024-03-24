@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package test;
+
+message EchoReq {
+  int64 msgId = 1;  //! 消息头
+  bytes msgBody = 2;  //! 消息体
+}
+
+message EchoRsp {
+  int64 resultCode = 1;
+  bytes msgBody = 2;  //! 消息体
+}
+
+message MsgHead {
+  int64 msgId = 1;
+}
+
+message CSMsgReq {
+  MsgHead msg_head = 1;
+  bytes msg_body = 2;
+}
+
+message GMCSMsgReq {
+  int64 role_id = 1;
+  bytes msg_body = 2;
+//  CSMsgReq cs_req = 2;
+}
+
+service EchoService
+{
+  rpc Echo(EchoReq) returns (EchoRsp);
+};
