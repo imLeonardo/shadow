@@ -42,6 +42,7 @@ rust/target/
 cmake-build*/
 logs/
 script/*.js
+node_modules/
 
 /CMakeLists.txt
 CMakeLists.txt.user
