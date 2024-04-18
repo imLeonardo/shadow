@@ -40,6 +40,7 @@
 rust/target/
 [Bb]uild*/
 cmake-build*/
+app_log/
 logs/
 script/*.js
 node_modules/

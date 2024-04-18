@@ -3,38 +3,49 @@
 //
 
 #include <cstdio>
+#include <iostream>
+
+#include <vector>
 #include <unordered_map>
+
 //#include <google/protobuf/util/json_util.h>
 
 #include "define.h"
-#include "echo_service.pb.h"
 #include "test.h"
-#include <vector>
+//#include "echo_service.pb.h"
+#include "javascript/quickjs/quickjs-libc.h"
 
 int main(int argc, char *argv[]) {
-//    ::google::protobuf::util::JsonParseOptions stOption;
-//    stOption.ignore_unknown_fields = true;
-//
-//    test::GMCSMsgReq gmcsMsgReq;
-//    std::string jsonReq = R"({"role_id":1408259647936361,"msg_body":"eyJtc2dfaGVhZCI6eyJtc2dJZCI6MTA1MX0sIm1zZ19ib2R5IjoiZXlKeWIyeGxYMmxrSWpvaU1UUXdPREkxT1RZME56a3pOak0yTVNJc0ltMXpaMmxrSWpvaU1UQTFNU0o5In0="})";
-//    ::google::protobuf::util::JsonStringToMessage(jsonReq, &gmcsMsgReq, stOption);
-//    std::cout << "gmcsMsgReq: " << gmcsMsgReq.DebugString();
-//
-//    test::CSMsgReq csMsgReq;
-//    ::google::protobuf::util::JsonStringToMessage(gmcsMsgReq.msg_body(), &csMsgReq, stOption);
-//    std::cout << "csMsgReq: " << csMsgReq.DebugString();
-//    std::unordered_map<int64_t, std::shared_ptr<test::ClassA>> poolMap;
-//    auto ptrClassA = std::make_shared<test::ClassA>();
-//    printf("1: %p\n", ptrClassA.get());
-//    poolMap.emplace(1, ptrClassA);
-//    auto ptrClassA2 = poolMap.find(1)->second;
-//    ptrClassA = nullptr;
-//    ptrClassA->print();
-//    printf("2: %p, %p\n", &ptrClassA, &ptrClassA2);
-    std::map<std::tuple<int32_t>, int32_t> map1;
-    std::tuple<int32_t> tuple{std::move(1)};
-    auto i = map1.find(tuple);
-    if(i != map1.end()){
-        printf("%d", i->second);
+    // 创建一个新的js环境
+    JSRuntime *rt = JS_NewRuntime();
+    if(!rt) {
+        std::cerr << "Failed to create a QuickJS runtime." << std::endl;
+        return 1;
     }
+
+    JSContext *ctx = JS_NewContext(rt);
+    if(!ctx) {
+        std::cerr << "Failed to create a QuickJS context." << std::endl;
+        JS_FreeRuntime(rt);
+        return 1;
+    }
+
+    // 读取js文件
+    uint8_t *ptrJSBuf;
+    size_t nBufLen;
+    const char *ptrJSFile = "./script/main.js";
+    ptrJSBuf = js_load_file(ctx, &nBufLen, ptrJSFile);
+    // 执行一个简单的js代码
+    JSValue jsRes = JS_Eval(ctx, reinterpret_cast<char *>(ptrJSBuf), nBufLen, ptrJSFile, JS_EVAL_TYPE_GLOBAL);
+    if(JS_IsException(jsRes)) {
+        js_std_dump_error(ctx);
+        return -1;
+    }
+
+    // 清理js环境
+    JS_FreeValue(ctx, jsRes);
+    JS_FreeContext(ctx);
+    JS_FreeRuntime(rt);
+
+    return 0;
 }
