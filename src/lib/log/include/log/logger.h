@@ -32,9 +32,9 @@ namespace shadow {
         std::shared_ptr<spdlog::logger> mLoggerAll;
         std::shared_ptr<spdlog::logger> mLoggerDailyErr;
 
-        void createLoggerAll(shadow::LogLevel);
+        void CreateLoggerAll(shadow::LogLevel level);
 
-        void createLoggerError();
+        void CreateLoggerError();
 
     public:
         Logger() = delete;
@@ -47,11 +47,11 @@ namespace shadow {
 
         ~Logger() noexcept override = default;
 
-        ErrCode init(shadow::LogLevel level = shadow::LogLevel::TRACE);
+        ErrCode Init(shadow::LogLevel level = shadow::LogLevel::TRACE);
 
-        ErrCode setLogLevel(shadow::LogLevel);
+        ErrCode SetLogLevel(shadow::LogLevel logLevel);
 
-        ErrCode release();
+        ErrCode Release();
 
         template<class... Args>
         void Trace(const char *fmt, Args &&... args) {

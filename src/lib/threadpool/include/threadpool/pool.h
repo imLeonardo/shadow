@@ -33,11 +33,11 @@ namespace shadow {
         public:
             explicit Pool(Singleton<Pool>::Token);
 
-            void createThread(thread_num_t);
+            void CreateThread(thread_num_t);
 
-            void joinAll();
+            void JoinAll();
 
-            void release();
+            void Release();
 
             template<class F, class... Args>
             auto addTask(const char *, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type>;

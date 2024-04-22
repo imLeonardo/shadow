@@ -20,12 +20,12 @@
 // 工具
 namespace util {
     template<class T>
-    inline int SHADOW_API arrayLength(const T &array) {
+    inline int SHADOW_API ArrayLength(const T &array) {
         return sizeof(array) / sizeof(array[0]);
     }
 
     template<class T>
-    bool SHADOW_API setValue(const T *src, const T *value, const T *defaultValue) {
+    bool SHADOW_API SetValue(const T *src, const T *value, const T *defaultValue) {
         if(value == nullptr)
             src = defaultValue;
         else

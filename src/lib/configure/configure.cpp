@@ -10,21 +10,21 @@ namespace shadow {
 
     }
 
-    void Configure::init(const char *configFilePath) {
+    void Configure::Init(const char *configFilePath) {
         if(configFilePath == nullptr) {
             throw std::runtime_error("Configure file is null");
         }
     }
 
-    void Configure::print() {
+    void Configure::Print() {
 
     }
 
-    int Configure::getInt(const char *key) {
+    int Configure::GetInt(const char *key) {
         return 0;
     }
 
-    const char *Configure::getString(const char *key) {
+    const char *Configure::GetString(const char *key) {
         return "";
     }
 } // namespace shadow

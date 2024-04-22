@@ -9,10 +9,10 @@ namespace shadow {
             shadow::log::Info("construct threadpool");
         }
 
-        void Pool::createThread(thread_num_t num) {
-            thread_num_t i;
+        void Pool::CreateThread(ThreadNum_t) {
+            ThreadNum_t i;
             for(i = 0; i < num; ++i)
-                this->mWorkers.emplace_back([&](thread_num_t n) {
+                this->mWorkers.emplace_back([&](ThreadNum_t n) {
                     shadow::log::Info("pool create thread{}", n);
                     while(true) {
                         std::function<void()> task;
@@ -31,13 +31,13 @@ namespace shadow {
                 }, i);
         }
 
-        void Pool::joinAll() {
+        void Pool::JoinAll() {
             for(std::thread &worker: this->mWorkers)
                 if(worker.joinable())
                     worker.join();
         }
 
-        void Pool::release() {
+        void Pool::Release() {
             shadow::log::Info("threadpool Release");
             this->mIsRunning = false;
             this->mCondition.notify_all();

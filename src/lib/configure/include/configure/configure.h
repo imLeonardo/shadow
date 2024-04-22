@@ -9,13 +9,13 @@ namespace shadow {
     public:
         explicit Configure(Singleton<Configure>::Token);
 
-        void init(const char *);
+        void Init(const char *);
 
-        void print();
+        void Print();
 
-        int getInt(const char *);
+        int GetInt(const char *);
 
-        const char* getString(const char *);
+        const char *GetString(const char *);
     private:
 
     };

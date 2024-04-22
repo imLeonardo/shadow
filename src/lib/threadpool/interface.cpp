@@ -4,16 +4,16 @@
 
 namespace shadow {
     namespace threadpool {
-        void createThread(thread_num_t num) {
-            shadow::threadpool::Pool::Instance().createThread(num);
+        void CreateThread(ThreadNum_t num) {
+            shadow::threadpool::Pool::Instance().CreateThread(num);
         }
 
         void JoinAll() {
-            shadow::threadpool::Pool::Instance().joinAll();
+            shadow::threadpool::Pool::Instance().JoinAll();
         }
 
         void Release() {
-            shadow::threadpool::Pool::Instance().release();
+            shadow::threadpool::Pool::Instance().Release();
         }
     }
 }
