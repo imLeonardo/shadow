@@ -11,13 +11,13 @@ void SignalHandler(int sig) {
     switch(sig) {
         case SIGINT:
             try {
-                shadow::App::Instance().stop();
+                shadow::App::Instance().Stop();
             } catch(const std::exception &err) {
-                shadow::log::critical(err.what());
+                shadow::log::Critical(err.what());
             }
             break;
         case SIGSEGV:
-            shadow::log::critical("segment violation");
+            shadow::log::Critical("segment violation");
             break;
         default:
             break;
@@ -31,13 +31,13 @@ void InitSignalHandler() {
 
 int main(int argc, char *argv[]) {
     try {
-        ErrCode ret = shadow::log::init();
+        ErrCode ret = shadow::log::Init();
         if(ret != ErrCode::SUCCESS) {
             return EXIT_FAILURE;
         }
 
         if(argc <= 1) {
-            shadow::log::error("please input config file");
+            shadow::log::Error("please input config file");
             return EXIT_FAILURE;
         }
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 
         shadow::threadpool::release();
     } catch(const std::exception &err) {
-        shadow::log::critical(err.what());
+        shadow::log::Critical(err.what());
     }
 
     shadow::log::release();

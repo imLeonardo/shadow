@@ -49,7 +49,7 @@ namespace shadow {
         * 停止
         * @return errcode
         */
-        ErrCode stop();
+        ErrCode Stop();
 
         /*
         * 退出

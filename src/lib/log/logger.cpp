@@ -27,7 +27,7 @@ namespace shadow {
     }
 
     void Logger::createLoggerError() {
-        this->mLoggerDailyErr = spdlog::daily_logger_mt("mLoggerDailyErr", "logs/error.log", 0, 0);
+        this->mLoggerDailyErr = spdlog::daily_logger_mt("mLoggerDailyErr", "logs/Error.log", 0, 0);
         this->mLoggerDailyErr->set_level(spdlog::level::err);
         this->mLoggerDailyErr->set_pattern(this->mPattern);
         this->mLoggerDailyErr->enable_backtrace(this->mBacktraceNum);
@@ -41,7 +41,7 @@ namespace shadow {
 
             return ErrCode::SUCCESS;
         } catch(const spdlog::spdlog_ex &ex) {
-            std::cout << "log init failed:" << ex.what() << std::endl;
+            std::cout << "log Init failed:" << ex.what() << std::endl;
 
             return ErrCode::FAIL;
         }

@@ -22,7 +22,7 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::init() {
-        shadow::log::info("server init");
+        shadow::log::info("server Init");
         this->setState(AppState::INIT);
 
         return ErrCode::SUCCESS;
@@ -65,7 +65,7 @@ namespace shadow {
                     shadow::js::Context jsContext = shadow::js::CreateContext();
                     JSValue jsValue = jsContext.EvalFile("script/main.js");
                     if (JS_IsException(jsValue)) {
-                        shadow::log::error("JS_Eval error jsfile:{}", "script/main.js");
+                        shadow::log::error("JS_Eval Error jsfile:{}", "script/main.js");
                         return ErrCode::FAIL;
                     }
                     JS_FreeValue(jsContext.GetContext(), jsValue);
@@ -106,8 +106,8 @@ namespace shadow {
     * 停止
     * @return errcode
     */
-    ErrCode App::stop() {
-        shadow::log::info("server begin stop");
+    ErrCode App::Stop() {
+        shadow::log::info("server begin Stop");
         this->setState(AppState::STOP);
 
         shadow::threadpool::release();

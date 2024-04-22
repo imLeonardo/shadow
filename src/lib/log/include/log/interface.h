@@ -20,7 +20,7 @@
 
 namespace shadow {
     namespace log {
-        SHADOW_API ErrCode init(int x = 1);
+        SHADOW_API ErrCode Init(int x = 1);
 
         SHADOW_API ErrCode setLogLevel(int);
 
@@ -47,12 +47,12 @@ namespace shadow {
         }
 
         template<class... Args>
-        SHADOW_API void error(const char *fmt, Args &&... args) {
+        SHADOW_API void Error(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().error(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
-        SHADOW_API void critical(const char *fmt, Args &&... args) {
+        SHADOW_API void Critical(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().critical(fmt, std::forward<Args>(args)...);
         }
     }

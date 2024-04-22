@@ -4,7 +4,7 @@
 
 namespace shadow {
     namespace log {
-        SHADOW_API ErrCode init(int logLevel) {
+        SHADOW_API ErrCode Init(int logLevel) {
             return shadow::Logger::Instance().init((shadow::LogLevel)logLevel);
         }
 

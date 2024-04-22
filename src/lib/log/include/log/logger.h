@@ -95,7 +95,7 @@ namespace shadow {
                 mLoggerAll->error(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->error(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log error failed:" << ex.what() << std::endl;
+                std::cout << "log Error failed:" << ex.what() << std::endl;
             }
         }
 
@@ -105,7 +105,7 @@ namespace shadow {
                 mLoggerAll->critical(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->critical(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log critical failed:" << ex.what() << std::endl;
+                std::cout << "log Critical failed:" << ex.what() << std::endl;
             }
         }
     };
