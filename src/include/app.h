@@ -19,19 +19,19 @@ namespace shadow {
         * 初始化
         * @return errcode
         */
-        ErrCode init();
+        ErrCode Init();
 
         /*
         * 启动
         * @return errcode
         */
-        ErrCode start();
+        ErrCode Start();
 
         /*
         * 运行
         * @return errcode
         */
-        ErrCode run();
+        ErrCode Run();
 
         /*pause
         * 暂停
@@ -55,7 +55,7 @@ namespace shadow {
         * 退出
         * @return errcode
         */
-        ErrCode exit() noexcept;
+        ErrCode Exit() noexcept;
 
         /*
         * 获取服务器状态

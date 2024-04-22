@@ -12,7 +12,7 @@ namespace shadow {
             shadow::threadpool::Pool::Instance().joinAll();
         }
 
-        void release() {
+        void Release() {
             shadow::threadpool::Pool::Instance().release();
         }
     }

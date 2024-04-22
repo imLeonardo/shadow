@@ -60,7 +60,7 @@ namespace shadow {
             //
             return ErrCode::SUCCESS;
         } catch(const spdlog::spdlog_ex &ex) {
-            std::cout << "log release failed:" << ex.what() << std::endl;
+            std::cout << "log Release failed:" << ex.what() << std::endl;
             //
             return ErrCode::FAIL;
         }

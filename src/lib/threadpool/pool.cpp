@@ -27,7 +27,7 @@ namespace shadow {
                         shadow::log::info("thread{} call task", n);
                         task();
                     }
-                    shadow::log::info("thread{} exit", n);
+                    shadow::log::info("thread{} Exit", n);
                 }, i);
         }
 
@@ -38,7 +38,7 @@ namespace shadow {
         }
 
         void Pool::release() {
-            shadow::log::info("threadpool release");
+            shadow::log::info("threadpool Release");
             this->mIsRunning = false;
             this->mCondition.notify_all();
         }

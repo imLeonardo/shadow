@@ -43,25 +43,25 @@ int main(int argc, char *argv[]) {
 
         InitSignalHandler();
 
-        shadow::config::init(argv[1]);
+        shadow::config::Init(argv[1]);
 
-        std::locale::global(std::locale(shadow::config::getString("locale")));
+        std::locale::global(std::locale(shadow::config::GetString("locale")));
 
-        shadow::log::setLogLevel(shadow::config::getInt("loglevel"));
+        shadow::log::SetLogLevel(shadow::config::GetInt("loglevel"));
 
-        shadow::threadpool::createThread(10);//shadow::config::getInt("threadnum"));
+        shadow::threadpool::CreateThread(10);//shadow::config::getInt("threadnum"));
 
-        shadow::App::Instance().init();
-        shadow::App::Instance().start();
-        shadow::App::Instance().run();
-        shadow::App::Instance().exit();
+        shadow::App::Instance().Init();
+        shadow::App::Instance().Start();
+        shadow::App::Instance().Run();
+        shadow::App::Instance().Exit();
 
-        shadow::threadpool::release();
+        shadow::threadpool::Release();
     } catch(const std::exception &err) {
         shadow::log::Critical(err.what());
     }
 
-    shadow::log::release();
+    shadow::log::Release();
 
     return EXIT_SUCCESS;
 }

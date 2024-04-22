@@ -8,11 +8,11 @@ namespace shadow {
             return shadow::Logger::Instance().init((shadow::LogLevel)logLevel);
         }
 
-        SHADOW_API ErrCode setLogLevel(int logLevel) {
+        SHADOW_API ErrCode SetLogLevel(int logLevel) {
             return shadow::Logger::Instance().setLogLevel((shadow::LogLevel)logLevel);
         }
 
-        SHADOW_API ErrCode release() {
+        SHADOW_API ErrCode Release() {
             return shadow::Logger::Instance().Instance();
         }
     }

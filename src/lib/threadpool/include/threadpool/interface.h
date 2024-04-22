@@ -30,7 +30,7 @@
 
 namespace shadow {
     namespace threadpool {
-        SHADOW_API void createThread(thread_num_t);
+        SHADOW_API void CreateThread(thread_num_t);
 
         template<class F, class... Args>
         SHADOW_API auto addTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
@@ -39,7 +39,7 @@ namespace shadow {
 
         SHADOW_API void joinAll();
 
-        SHADOW_API void release();
+        SHADOW_API void Release();
     }
 }
 

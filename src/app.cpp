@@ -21,7 +21,7 @@ namespace shadow {
     * 初始化
     * @return errcode
     */
-    ErrCode App::init() {
+    ErrCode App::Init() {
         shadow::log::info("server Init");
         this->setState(AppState::INIT);
 
@@ -32,8 +32,8 @@ namespace shadow {
     * 启动
     * @return errcode
     */
-    ErrCode App::start() {
-        shadow::log::info("server start");
+    ErrCode App::Start() {
+        shadow::log::info("server Start");
         this->setState(AppState::START);
 
         return ErrCode::SUCCESS;
@@ -43,8 +43,8 @@ namespace shadow {
     * 运行
     * @return errcode
     */
-    ErrCode App::run() {
-        shadow::log::info("server run");
+    ErrCode App::Run() {
+        shadow::log::info("server Run");
         this->setState(AppState::RUN);
 
 //        shadow::thread::Pool::instance().addTask("create map", []() {
@@ -110,7 +110,7 @@ namespace shadow {
         shadow::log::info("server begin Stop");
         this->setState(AppState::STOP);
 
-        shadow::threadpool::release();
+        shadow::threadpool::Release();
 
         return ErrCode::SUCCESS;
     }
@@ -119,8 +119,8 @@ namespace shadow {
     * 退出
     * @return errcode
     */
-    ErrCode App::exit() noexcept {
-        shadow::log::info("server begin exit");
+    ErrCode App::Exit() noexcept {
+        shadow::log::info("server begin Exit");
 
         return ErrCode::SUCCESS;
     }

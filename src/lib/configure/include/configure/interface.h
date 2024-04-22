@@ -17,13 +17,13 @@
 
 namespace shadow {
     namespace config {
-        SHADOW_API void init(const char *);
+        SHADOW_API void Init(const char *);
 
         SHADOW_API void print();
 
-        SHADOW_API int getInt(const char *);
+        SHADOW_API int GetInt(const char *);
 
-        SHADOW_API const char* getString(const char *);
+        SHADOW_API const char* GetString(const char *);
     }
 }
 

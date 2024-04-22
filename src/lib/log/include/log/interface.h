@@ -22,9 +22,9 @@ namespace shadow {
     namespace log {
         SHADOW_API ErrCode Init(int x = 1);
 
-        SHADOW_API ErrCode setLogLevel(int);
+        SHADOW_API ErrCode SetLogLevel(int);
 
-        SHADOW_API ErrCode release();
+        SHADOW_API ErrCode Release();
 
         template<class... Args>
         SHADOW_API void trace(const char *fmt, Args &&... args) {
