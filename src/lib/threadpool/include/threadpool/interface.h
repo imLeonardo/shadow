@@ -30,14 +30,14 @@
 
 namespace shadow {
     namespace threadpool {
-        SHADOW_API void CreateThread(thread_num_t);
+        SHADOW_API void CreateThread(ThreadNum_t);
 
         template<class F, class... Args>
-        SHADOW_API auto addTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
+        SHADOW_API auto AddTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
             return shadow::threadpool::Pool::Instance().addTask(reason, f, std::forward<Args>(args)...);
         }
 
-        SHADOW_API void joinAll();
+        SHADOW_API void JoinAll();
 
         SHADOW_API void Release();
     }

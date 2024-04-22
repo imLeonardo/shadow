@@ -75,7 +75,7 @@ namespace shadow {
                 return ErrCode::SUCCESS;
             });
         }
-        shadow::threadpool::joinAll();
+        shadow::threadpool::JoinAll();
 
         return ErrCode::SUCCESS;
     }

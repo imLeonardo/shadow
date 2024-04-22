@@ -19,7 +19,7 @@ namespace shadow {
     namespace config {
         SHADOW_API void Init(const char *);
 
-        SHADOW_API void print();
+        SHADOW_API void Print();
 
         SHADOW_API int GetInt(const char *);
 

@@ -8,7 +8,7 @@ namespace shadow {
             shadow::Configure::Instance().init(configFilePath);
         }
 
-        SHADOW_API void print() {
+        SHADOW_API void Print() {
             shadow::Configure::Instance().print();
         }
 

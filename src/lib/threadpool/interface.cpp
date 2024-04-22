@@ -8,7 +8,7 @@ namespace shadow {
             shadow::threadpool::Pool::Instance().createThread(num);
         }
 
-        void joinAll() {
+        void JoinAll() {
             shadow::threadpool::Pool::Instance().joinAll();
         }
 

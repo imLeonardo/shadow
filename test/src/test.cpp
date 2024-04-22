@@ -23,6 +23,6 @@ namespace test {
     }
 
     void ClassA::print() const {
-        printf("ClassA print %d\n", this->a);
+        printf("ClassA Print %d\n", this->a);
     }
 }
