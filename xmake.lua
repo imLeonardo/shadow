@@ -30,6 +30,7 @@ end
 target("shadow", function()
     set_kind("binary")
 
+    includes("lib/**/xmake.lua")
     includes("src/**/xmake.lua")
 
     add_includedirs("src/include")
@@ -38,7 +39,7 @@ target("shadow", function()
     --add_packages("protobuf-cpp")
     --add_files("src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "src/proto"})
 
-    add_packages("spdlog")
+    --add_packages("spdlog")
     --add_packages("quickjs")
 
     add_defines("SHARED_LIB")
