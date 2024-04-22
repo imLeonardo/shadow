@@ -56,7 +56,7 @@ namespace shadow {
         // add new task to the queue
         template<class F, class... Args>
         auto Pool::addTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
-            shadow::log::info("theadpool add task,reason:{}", reason);
+            shadow::log::Info("theadpool add task,reason:{}", reason);
             using return_type = typename std::result_of<F(Args...)>::type;
 
             auto task = std::make_shared<std::packaged_task<return_type()>>(

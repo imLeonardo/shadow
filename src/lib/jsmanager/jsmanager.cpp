@@ -5,7 +5,7 @@
 namespace shadow {
     namespace js {
         Context::Context(size_t id): mID(id) {
-            shadow::log::info("create js context id:{}", this->mID);
+            shadow::log::Info("create js context id:{}", this->mID);
             this->jsRuntime = JS_NewRuntime();
             if(!this->jsRuntime) throw JS_EXCEPTION;
             this->jsContext = JS_NewContext(this->jsRuntime);
@@ -43,7 +43,7 @@ namespace shadow {
         }
 
         Manager::Manager(Singleton<Manager>::Token) {
-            shadow::log::info("construct jsmanager");
+            shadow::log::Info("construct jsmanager");
         }
 
         shadow::js::Context Manager::CreateContext() {

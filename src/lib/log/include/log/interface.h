@@ -27,22 +27,22 @@ namespace shadow {
         SHADOW_API ErrCode Release();
 
         template<class... Args>
-        SHADOW_API void trace(const char *fmt, Args &&... args) {
+        SHADOW_API void Trace(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().Trace(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
-        SHADOW_API void debug(const char *fmt, Args &&... args) {
+        SHADOW_API void Debug(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().Debug(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
-        SHADOW_API void info(const char *fmt, Args &&... args) {
+        SHADOW_API void Info(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().Info(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
-        SHADOW_API void warn(const char *fmt, Args &&... args) {
+        SHADOW_API void Warn(const char *fmt, Args &&... args) {
             shadow::Logger::Instance().Warn(fmt, std::forward<Args>(args)...);
         }
 

@@ -6,14 +6,14 @@ namespace shadow {
     namespace threadpool {
         // the constructor just launches some amount of workers
         Pool::Pool(Singleton<Pool>::Token) : mIsRunning(true) {
-            shadow::log::info("construct threadpool");
+            shadow::log::Info("construct threadpool");
         }
 
         void Pool::createThread(thread_num_t num) {
             thread_num_t i;
             for(i = 0; i < num; ++i)
                 this->mWorkers.emplace_back([&](thread_num_t n) {
-                    shadow::log::info("pool create thread{}", n);
+                    shadow::log::Info("pool create thread{}", n);
                     while(true) {
                         std::function<void()> task;
                         {
@@ -24,10 +24,10 @@ namespace shadow {
                             task = std::move(this->mTasks.front());
                             this->mTasks.pop();
                         }
-                        shadow::log::info("thread{} call task", n);
+                        shadow::log::Info("thread{} call task", n);
                         task();
                     }
-                    shadow::log::info("thread{} Exit", n);
+                    shadow::log::Info("thread{} Exit", n);
                 }, i);
         }
 
@@ -38,7 +38,7 @@ namespace shadow {
         }
 
         void Pool::release() {
-            shadow::log::info("threadpool Release");
+            shadow::log::Info("threadpool Release");
             this->mIsRunning = false;
             this->mCondition.notify_all();
         }
