@@ -54,43 +54,43 @@ namespace shadow {
         ErrCode release();
 
         template<class... Args>
-        void trace(const char *fmt, Args &&... args) {
+        void Trace(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->trace(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log trace failed:" << ex.what() << std::endl;
+                std::cout << "log Trace failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        void debug(const char *fmt, Args &&... args) {
+        void Debug(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->debug(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log debug failed:" << ex.what() << std::endl;
+                std::cout << "log Debug failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        void info(const char *fmt, Args &&... args) {
+        void Info(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->info(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log info failed:" << ex.what() << std::endl;
+                std::cout << "log Info failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        void warn(const char *fmt, Args &&... args) {
+        void Warn(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->warn(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log warn failed:" << ex.what() << std::endl;
+                std::cout << "log Warn failed:" << ex.what() << std::endl;
             }
         }
 
         template<class... Args>
-        void error(const char *fmt, Args &&... args) {
+        void Error(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->error(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->error(fmt, std::forward<Args>(args)...);
@@ -100,7 +100,7 @@ namespace shadow {
         }
 
         template<class... Args>
-        void critical(const char *fmt, Args &&... args) {
+        void Critical(const char *fmt, Args &&... args) {
             try {
                 mLoggerAll->critical(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->critical(fmt, std::forward<Args>(args)...);

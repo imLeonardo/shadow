@@ -28,32 +28,32 @@ namespace shadow {
 
         template<class... Args>
         SHADOW_API void trace(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().trace(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Trace(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
         SHADOW_API void debug(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().debug(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Debug(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
         SHADOW_API void info(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().info(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Info(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
         SHADOW_API void warn(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().warn(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Warn(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
         SHADOW_API void Error(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().error(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Error(fmt, std::forward<Args>(args)...);
         }
 
         template<class... Args>
         SHADOW_API void Critical(const char *fmt, Args &&... args) {
-            shadow::Logger::Instance().critical(fmt, std::forward<Args>(args)...);
+            shadow::Logger::Instance().Critical(fmt, std::forward<Args>(args)...);
         }
     }
 }
