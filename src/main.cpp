@@ -7,11 +7,11 @@
 #include "threadpool/interface.h"
 #include "net/interface.h"
 
-void signalHandler(int sig) {
+void SignalHandler(int sig) {
     switch(sig) {
         case SIGINT:
             try {
-                shadow::App::instance().stop();
+                shadow::App::Instance().stop();
             } catch(const std::exception &err) {
                 shadow::log::critical(err.what());
             }
@@ -24,9 +24,9 @@ void signalHandler(int sig) {
     }
 }
 
-void initSignalHandler() {
-    signal(SIGINT, signalHandler);
-    signal(SIGSEGV, signalHandler);
+void InitSignalHandler() {
+    signal(SIGINT, SignalHandler);
+    signal(SIGSEGV, SignalHandler);
 }
 
 int main(int argc, char *argv[]) {
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
             return EXIT_FAILURE;
         }
 
-        initSignalHandler();
+        InitSignalHandler();
 
         shadow::config::init(argv[1]);
 
@@ -51,10 +51,10 @@ int main(int argc, char *argv[]) {
 
         shadow::threadpool::createThread(10);//shadow::config::getInt("threadnum"));
 
-        shadow::App::instance().init();
-        shadow::App::instance().start();
-        shadow::App::instance().run();
-        shadow::App::instance().exit();
+        shadow::App::Instance().init();
+        shadow::App::Instance().start();
+        shadow::App::Instance().run();
+        shadow::App::Instance().exit();
 
         shadow::threadpool::release();
     } catch(const std::exception &err) {

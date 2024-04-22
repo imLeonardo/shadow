@@ -28,7 +28,7 @@ namespace shadow {
 
         virtual ~Singleton() noexcept = default;
 
-        static T &instance() noexcept(std::is_nothrow_constructible<T>::value);
+        static T &Instance() noexcept(std::is_nothrow_constructible<T>::value);
 
     protected:
         Singleton() noexcept = default;

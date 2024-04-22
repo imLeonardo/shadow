@@ -5,15 +5,15 @@
 namespace shadow {
     namespace threadpool {
         void createThread(thread_num_t num) {
-            shadow::threadpool::Pool::instance().createThread(num);
+            shadow::threadpool::Pool::Instance().createThread(num);
         }
 
         void joinAll() {
-            shadow::threadpool::Pool::instance().joinAll();
+            shadow::threadpool::Pool::Instance().joinAll();
         }
 
         void release() {
-            shadow::threadpool::Pool::instance().release();
+            shadow::threadpool::Pool::Instance().release();
         }
     }
 }

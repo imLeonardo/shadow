@@ -5,7 +5,7 @@
 namespace shadow {
     namespace net {
         SHADOW_API void init() {
-            shadow::net::Socket::instance();
+            shadow::net::Socket::Instance();
         }
     }
 }

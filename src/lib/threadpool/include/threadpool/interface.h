@@ -34,7 +34,7 @@ namespace shadow {
 
         template<class F, class... Args>
         SHADOW_API auto addTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
-            return shadow::threadpool::Pool::instance().addTask(reason, f, std::forward<Args>(args)...);
+            return shadow::threadpool::Pool::Instance().addTask(reason, f, std::forward<Args>(args)...);
         }
 
         SHADOW_API void joinAll();
