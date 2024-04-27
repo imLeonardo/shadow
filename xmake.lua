@@ -66,7 +66,7 @@ end)
 target("test", function()
     set_kind("binary")
 
-    add_includedirs("lib")
+    --add_includedirs("lib")
     add_includedirs("test/src/include")
     add_files("test/src/*.cpp")
 
