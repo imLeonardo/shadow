@@ -13,13 +13,13 @@
 //#include "map/map.h"
 
 namespace shadow {
-    App::App(Singleton<App>::Token): mState(AppState::UNDEFINED) {
+    App::App(Singleton<App>::Token): mAppState(AppState::UNDEFINED) {
 
     }
 
     /*
     * 初始化
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::Init() {
         shadow::log::info("server Init");
@@ -30,7 +30,7 @@ namespace shadow {
 
     /*
     * 启动
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::Start() {
         shadow::log::info("server Start");
@@ -41,7 +41,7 @@ namespace shadow {
 
     /*
     * 运行
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::Run() {
         shadow::log::info("server Run");
@@ -82,29 +82,29 @@ namespace shadow {
 
     /*
     * 暂停
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::pause() {
         shadow::log::info("server pause");
-        this->setState(AppState::PAUSE);
+        this->setAppState(AppState::PAUSE);
 
         return ErrCode::SUCCESS;
     }
 
     /*
-* 暂停
-* @return errcode
-*/
+    * 暂停
+    * @return ErrCode
+    */
     ErrCode App::resume() {
         shadow::log::info("server resume");
-        this->setState(AppState::RUN);
+        this->setAppState(AppState::RUN);
 
         return ErrCode::SUCCESS;
     }
 
     /*
     * 停止
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::Stop() {
         shadow::log::info("server begin Stop");
@@ -117,37 +117,34 @@ namespace shadow {
 
     /*
     * 退出
-    * @return errcode
+    * @return ErrCode
     */
     ErrCode App::Exit() noexcept {
         shadow::log::info("server begin Exit");
 
         return ErrCode::SUCCESS;
-        .
-
-
     }
 
     /*
     * 获取服务器状态
-    * @return server_state
+    * @return AppState
     */
-    AppState App::getState() {
-        return this->mState;
+    AppState App::getAppState() {
+        return this->mAppState;
     }
 
     /*
     * 设置服务器状态
-    * @return errcode
+    * @return ErrCode
     */
-    ErrCode App::setState(const AppState &state) {
-        shadow::log::info("set app state:{}", static_cast<uint32_t>(state));
-        this->mState = state;
+    ErrCode App::setAppState(const AppState &appState) {
+        shadow::log::info("set app state:{}", static_cast<uint32_t>(appState));
+        this->mAppState = appState;
 
         return ErrCode::SUCCESS;
     }
 
     bool App::isRunning() {
-        return this->mState == AppState::RUN;
+        return this->mAppState == AppState::RUN;
     }
 } // namespace shadow

@@ -17,62 +17,62 @@ namespace shadow {
 
         /*
         * 初始化
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode Init();
 
         /*
         * 启动
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode Start();
 
         /*
         * 运行
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode Run();
 
         /*pause
         * 暂停
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode pause();
 
         /*resume
         * 恢复
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode resume();
 
         /*
         * 停止
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode Stop();
 
         /*
         * 退出
-        * @return errcode
+        * @return ErrCode
         */
         ErrCode Exit() noexcept;
 
         /*
-        * 获取服务器状态
-        * @return server_state
+        * 获取状态
+        * @return AppState
         */
-        AppState getState();
+        AppState getAppState();
 
     protected:
 
     private:
-        std::atomic<AppState> mState;
+        std::atomic<AppState> mAppState;
 
         /*
         * 设置服务器状态
-        * @return errcode
+        * @return ErrCode
         */
-        ErrCode setState(const AppState &state);
+        ErrCode setAppState(const AppState &);
 
         bool isRunning();
     };
