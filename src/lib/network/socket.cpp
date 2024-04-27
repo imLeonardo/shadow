@@ -5,7 +5,7 @@
 #include "asio.hpp"
 
 namespace shadow {
-    namespace net {
+    namespace network {
         Socket::Socket(Singleton<Socket>::Token) {
 
         }

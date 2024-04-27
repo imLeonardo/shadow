@@ -33,7 +33,7 @@ namespace shadow {
         public:
             explicit Pool(Singleton<Pool>::Token);
 
-            void CreateThread(thread_num_t);
+            void CreateThread(ThreadNum_t);
 
             void JoinAll();
 
@@ -71,7 +71,9 @@ namespace shadow {
                 if(!this->mIsRunning)
                     throw std::runtime_error("add task on pool not running");
 
-                this->mTasks.emplace([task]() {(*task)();});
+                this->mTasks.emplace([task]() {
+                    (*task)();
+                });
             }
             this->mCondition.notify_one();
 

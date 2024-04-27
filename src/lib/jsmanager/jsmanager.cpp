@@ -4,7 +4,7 @@
 
 namespace shadow {
     namespace js {
-        Context::Context(size_t id): mID(id) {
+        Context::Context(uint64_t id): mID(id) {
             shadow::log::Info("create js context id:{}", this->mID);
             this->jsRuntime = JS_NewRuntime();
             if(!this->jsRuntime) throw JS_EXCEPTION;
@@ -26,7 +26,7 @@ namespace shadow {
             fseek(fp, 0, SEEK_END);
             long filesize = ftell(fp);
             fseek(fp, 0, SEEK_SET);
-            char *buffer = (char*)malloc(filesize + 1);
+            char *buffer = static_cast<char*>(malloc(filesize + 1));
             fread(buffer, filesize, 1, fp);
             fclose(fp);
             buffer[filesize] = '\0';
@@ -53,13 +53,13 @@ namespace shadow {
             return this->jsContextPool.find(this->mNowID)->second;
         }
 
-        ErrCode Manager::DelContext(size_t id) {
+        ErrCode Manager::DelContext(uint64_t id) {
             this->jsContextPool.erase(id);
 
             return ErrCode::SUCCESS;
         }
 
-        shadow::js::Context Manager::GetContext(size_t id) {
+        shadow::js::Context Manager::GetContext(uint64_t id) {
             return this->jsContextPool.find(id)->second;
         }
     } // namespace js

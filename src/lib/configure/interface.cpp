@@ -12,7 +12,7 @@ namespace shadow {
             shadow::Configure::Instance().Print();
         }
 
-        SHADOW_API int GetInt(const char *key) {
+        SHADOW_API int64_t GetInt(const char *key) {
             return shadow::Configure::Instance().GetInt(key);
         }
 

@@ -20,7 +20,7 @@
 # endif // !SHARED_LIB
 
 namespace shadow {
-    namespace net {
+    namespace network {
         class Socket final: public shadow::Singleton<Socket> {
         public:
             explicit Socket(Singleton<Socket>::Token);

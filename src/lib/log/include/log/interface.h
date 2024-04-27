@@ -20,9 +20,9 @@
 
 namespace shadow {
     namespace log {
-        SHADOW_API ErrCode Init(int x = 1);
+        SHADOW_API ErrCode Init(uint32_t x = 1);
 
-        SHADOW_API ErrCode SetLogLevel(int);
+        SHADOW_API ErrCode SetLogLevel(uint32_t);
 
         SHADOW_API ErrCode Release();
 

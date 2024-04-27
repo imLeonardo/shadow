@@ -1,6 +1,8 @@
 #ifndef SHADOW_CONFIGURE_INTERFACE_H
 #define SHADOW_CONFIGURE_INTERFACE_H
 
+#include <cstdint>
+
 # ifdef SHARED_LIB
 #   ifdef WIN32
 #      ifdef DLLEXPORT
@@ -21,7 +23,7 @@ namespace shadow {
 
         SHADOW_API void Print();
 
-        SHADOW_API int GetInt(const char *);
+        SHADOW_API int64_t GetInt(const char *);
 
         SHADOW_API const char* GetString(const char *);
     }

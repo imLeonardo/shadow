@@ -7,7 +7,7 @@
 #include "threadpool/interface.h"
 #include "net/interface.h"
 
-void SignalHandler(int sig) {
+void SignalHandler(uint32_t sig) {
     switch(sig) {
         case SIGINT:
             try {

@@ -20,7 +20,7 @@ namespace shadow {
 
     }
 
-    int Configure::GetInt(const char *key) {
+    int64_t Configure::GetInt(const char *key) {
         return 0;
     }
 

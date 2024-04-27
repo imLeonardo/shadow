@@ -5,9 +5,9 @@
 
 //#include "spdlog/fmt/bundled/core.h"
 
-typedef uint32_t thread_num_t;
+typedef uint32_t ThreadNum_t;
 
-const thread_num_t WORK_THREAD_NUM = 3;
+const ThreadNum_t WORK_THREAD_NUM = 3;
 
 enum class Color {
     RED,

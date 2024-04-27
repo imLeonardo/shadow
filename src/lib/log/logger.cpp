@@ -20,7 +20,7 @@ namespace shadow {
         auto sinkDailyAll = std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/main.log", 0, 0);
         spdlog::sinks_init_list sinks{sinkStdout, sinkDailyAll};
         this->mLoggerAll = std::make_shared<spdlog::async_logger>("mLoggerAll", sinks, spdlog::thread_pool());
-        this->mLoggerAll->set_level((spdlog::level::level_enum) level);
+        this->mLoggerAll->set_level(static_cast<spdlog::level::level_enum>(level));
         this->mLoggerAll->set_pattern(this->mPattern);
         this->mLoggerAll->enable_backtrace(this->mBacktraceNum);
         spdlog::register_logger(this->mLoggerAll);

@@ -10,8 +10,7 @@ namespace shadow {
         }
 
         void Pool::CreateThread(ThreadNum_t) {
-            ThreadNum_t i;
-            for(i = 0; i < num; ++i)
+            for(ThreadNum_t i = 0; i < num; ++i)
                 this->mWorkers.emplace_back([&](ThreadNum_t n) {
                     shadow::log::Info("pool create thread{}", n);
                     while(true) {

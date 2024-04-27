@@ -56,7 +56,7 @@ namespace shadow {
 ////            test_map->print_map();
 //        });
 
-        for(int i = 0; i < 1; i++) {
+        for(uint32_t i = 0; i < 1; i++) {
             shadow::threadpool::addTask("add work thread", [this, &i]() {
                 while(this->isRunning()) {
 //                    int a[] = {1, 2, 3, 4, 5};
@@ -123,6 +123,9 @@ namespace shadow {
         shadow::log::info("server begin Exit");
 
         return ErrCode::SUCCESS;
+        .
+
+
     }
 
     /*
@@ -138,7 +141,7 @@ namespace shadow {
     * @return errcode
     */
     ErrCode App::setState(const AppState &state) {
-        shadow::log::info("set app state:{}", (int) state);
+        shadow::log::info("set app state:{}", static_cast<uint32_t>(state));
         this->mState = state;
 
         return ErrCode::SUCCESS;

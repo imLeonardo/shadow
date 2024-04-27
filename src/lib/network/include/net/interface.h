@@ -16,7 +16,7 @@
 # endif // !SHARED_LIB
 
 namespace shadow {
-    namespace net {
+    namespace network {
         SHADOW_API void Init();
     }
 }

@@ -13,7 +13,7 @@ namespace shadow {
 
         void Print();
 
-        int GetInt(const char *);
+        int64_t GetInt(const char *);
 
         const char *GetString(const char *);
     private:
