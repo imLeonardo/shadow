@@ -40,7 +40,7 @@ namespace shadow {
             void Release();
 
             template<class F, class... Args>
-            auto addTask(const char *, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type>;
+            auto AddTask(const char *, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type>;
 
         private:
             // need to keep track of threads, so we can join them
@@ -55,7 +55,7 @@ namespace shadow {
 
         // add new task to the queue
         template<class F, class... Args>
-        auto Pool::addTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
+        auto Pool::AddTask(const char *, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
             shadow::log::Info("theadpool add task,reason:{}", reason);
             using return_type = typename std::result_of<F(Args...)>::type;
 

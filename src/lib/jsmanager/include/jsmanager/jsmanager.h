@@ -20,8 +20,8 @@ namespace shadow {
         class Context final {
         private:
             uint64_t mID;
-            JSRuntime *jsRuntime = nullptr;
-            JSContext *jsContext = nullptr;
+            JSRuntime *ptrJsRuntime = nullptr;
+            JSContext *ptrJsContext = nullptr;
 
             std::string LoadFile(std::string);
 
@@ -34,7 +34,7 @@ namespace shadow {
 
             JSContext *GetContext();
 
-            JSValue EvalFile(const std::string, unsigned evalflag = 0);
+            JSValue EvalFile(const std::string, unsigned evalFlag = 0);
         };
 
         typedef std::unordered_map<uint64_t, shadow::js::Context> JSContextPool;
@@ -42,7 +42,7 @@ namespace shadow {
         class Manager final: public shadow::Singleton<Manager> {
         private:
             std::atomic<uint64_t> mNowID{0};
-            JSContextPool jsContextPool;
+            JSContextPool jsContextPoolMap;
         public:
             Manager() = delete;
 

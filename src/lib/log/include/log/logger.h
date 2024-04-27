@@ -25,9 +25,9 @@ namespace shadow {
 
     class Logger final: public shadow::Singleton<Logger> {
     private:
-        int mQsize;
-        int mThreadNum;
-        int mBacktraceNum;
+        int32_t mQsize;
+        int32_t mThreadNum;
+        int32_t mBacktraceNum;
         const char *mPattern;
         std::shared_ptr<spdlog::logger> mLoggerAll;
         std::shared_ptr<spdlog::logger> mLoggerDailyErr;
@@ -58,7 +58,7 @@ namespace shadow {
             try {
                 mLoggerAll->trace(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Trace failed:" << ex.what() << std::endl;
+                std::cout << "log trace failed:" << ex.what() << std::endl;
             }
         }
 
@@ -67,7 +67,7 @@ namespace shadow {
             try {
                 mLoggerAll->debug(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Debug failed:" << ex.what() << std::endl;
+                std::cout << "log debug failed:" << ex.what() << std::endl;
             }
         }
 
@@ -76,7 +76,7 @@ namespace shadow {
             try {
                 mLoggerAll->info(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Info failed:" << ex.what() << std::endl;
+                std::cout << "log info failed:" << ex.what() << std::endl;
             }
         }
 
@@ -85,7 +85,7 @@ namespace shadow {
             try {
                 mLoggerAll->warn(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Warn failed:" << ex.what() << std::endl;
+                std::cout << "log warn failed:" << ex.what() << std::endl;
             }
         }
 
@@ -95,7 +95,7 @@ namespace shadow {
                 mLoggerAll->error(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->error(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Error failed:" << ex.what() << std::endl;
+                std::cout << "log error failed:" << ex.what() << std::endl;
             }
         }
 
@@ -105,7 +105,7 @@ namespace shadow {
                 mLoggerAll->critical(fmt, std::forward<Args>(args)...);
                 mLoggerDailyErr->critical(fmt, std::forward<Args>(args)...);
             } catch(const spdlog::spdlog_ex &ex) {
-                std::cout << "log Critical failed:" << ex.what() << std::endl;
+                std::cout << "log critical failed:" << ex.what() << std::endl;
             }
         }
     };

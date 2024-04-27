@@ -22,8 +22,8 @@ namespace shadow {
     * @return ErrCode
     */
     ErrCode App::Init() {
-        shadow::log::info("server Init");
-        this->setState(AppState::INIT);
+        shadow::log::info("server init");
+        this->SetAppState(AppState::INIT);
 
         return ErrCode::SUCCESS;
     }
@@ -33,8 +33,8 @@ namespace shadow {
     * @return ErrCode
     */
     ErrCode App::Start() {
-        shadow::log::info("server Start");
-        this->setState(AppState::START);
+        shadow::log::info("server start");
+        this->SetAppState(AppState::START);
 
         return ErrCode::SUCCESS;
     }
@@ -44,8 +44,8 @@ namespace shadow {
     * @return ErrCode
     */
     ErrCode App::Run() {
-        shadow::log::info("server Run");
-        this->setState(AppState::RUN);
+        shadow::log::info("server run");
+        this->SetAppState(AppState::RUN);
 
 //        shadow::thread::Pool::instance().addTask("create map", []() {
 //            auto *test_map = new shadow::Map();
@@ -58,7 +58,7 @@ namespace shadow {
 
         for(uint32_t i = 0; i < 1; i++) {
             shadow::threadpool::addTask("add work thread", [this, &i]() {
-                while(this->isRunning()) {
+                while(this->IsRunning()) {
 //                    int a[] = {1, 2, 3, 4, 5};
 //                    shadow::log::info("a's length is {},n:{}", util::arrayLength(a), i);
 
@@ -84,9 +84,9 @@ namespace shadow {
     * 暂停
     * @return ErrCode
     */
-    ErrCode App::pause() {
+    ErrCode App::Pause() {
         shadow::log::info("server pause");
-        this->setAppState(AppState::PAUSE);
+        this->SetAppState(AppState::PAUSE);
 
         return ErrCode::SUCCESS;
     }
@@ -95,9 +95,9 @@ namespace shadow {
     * 暂停
     * @return ErrCode
     */
-    ErrCode App::resume() {
+    ErrCode App::Resume() {
         shadow::log::info("server resume");
-        this->setAppState(AppState::RUN);
+        this->SetAppState(AppState::RUN);
 
         return ErrCode::SUCCESS;
     }
@@ -107,7 +107,7 @@ namespace shadow {
     * @return ErrCode
     */
     ErrCode App::Stop() {
-        shadow::log::info("server begin Stop");
+        shadow::log::info("server begin stop");
         this->setState(AppState::STOP);
 
         shadow::threadpool::Release();
@@ -120,7 +120,7 @@ namespace shadow {
     * @return ErrCode
     */
     ErrCode App::Exit() noexcept {
-        shadow::log::info("server begin Exit");
+        shadow::log::info("server begin exit");
 
         return ErrCode::SUCCESS;
     }
@@ -129,7 +129,7 @@ namespace shadow {
     * 获取服务器状态
     * @return AppState
     */
-    AppState App::getAppState() {
+    AppState App::GetAppState() {
         return this->mAppState;
     }
 
@@ -137,14 +137,14 @@ namespace shadow {
     * 设置服务器状态
     * @return ErrCode
     */
-    ErrCode App::setAppState(const AppState &appState) {
+    ErrCode App::SetAppState(const AppState &appState) {
         shadow::log::info("set app state:{}", static_cast<uint32_t>(appState));
         this->mAppState = appState;
 
         return ErrCode::SUCCESS;
     }
 
-    bool App::isRunning() {
+    bool App::IsRunning() {
         return this->mAppState == AppState::RUN;
     }
 } // namespace shadow

@@ -6,22 +6,22 @@ namespace shadow {
     namespace js {
         Context::Context(uint64_t id): mID(id) {
             shadow::log::Info("create js context id:{}", this->mID);
-            this->jsRuntime = JS_NewRuntime();
-            if(!this->jsRuntime) throw JS_EXCEPTION;
-            this->jsContext = JS_NewContext(this->jsRuntime);
-            if(!this->jsContext) throw JS_EXCEPTION;
+            this->ptrJsRuntime = JS_NewRuntime();
+            if(!this->ptrJsRuntime) throw JS_EXCEPTION;
+            this->ptrJsContext = JS_NewContext(this->ptrJsRuntime);
+            if(!this->ptrJsContext) throw JS_EXCEPTION;
         }
 
         Context::~Context() noexcept {
-            JS_FreeContext(this->jsContext);
-            this->jsContext = nullptr;
+            JS_FreeContext(this->ptrJsContext);
+            this->ptrJsContext = nullptr;
 
-            JS_FreeRuntime(this->jsRuntime);
-            this->jsRuntime = nullptr;
+            JS_FreeRuntime(this->ptrJsRuntime);
+            this->ptrJsRuntime = nullptr;
         }
 
         std::string Context::LoadFile(std::string filename) {
-            FILE  *fp = nullptr;
+            FILE *fp = nullptr;
             errno_t err = fopen_s(&fp, filename.c_str(), "r");
             fseek(fp, 0, SEEK_END);
             long filesize = ftell(fp);
@@ -34,12 +34,12 @@ namespace shadow {
         }
 
         JSContext *Context::GetContext() {
-            return this->jsContext;
+            return this->ptrJsContext;
         }
 
-        JSValue Context::EvalFile(const std::string filename, unsigned int evalflag) {
+        JSValue Context::EvalFile(const std::string filename, unsigned int evalFlag) {
             std::string jsFile = LoadFile(filename);
-            return JS_Eval(this->jsContext, jsFile.c_str(), jsFile.length(), "<eval>", JS_EVAL_TYPE_GLOBAL);
+            return JS_Eval(this->ptrJsContext, jsFile.c_str(), jsFile.length(), "<eval>", JS_EVAL_TYPE_GLOBAL);
         }
 
         Manager::Manager(Singleton<Manager>::Token) {
@@ -48,19 +48,19 @@ namespace shadow {
 
         shadow::js::Context Manager::CreateContext() {
             this->mNowID++;
-            this->jsContextPool.emplace(this->mNowID, Context(this->mNowID));
+            this->jsContextPoolMap.emplace(this->mNowID, Context(this->mNowID));
 
-            return this->jsContextPool.find(this->mNowID)->second;
+            return this->jsContextPoolMap.find(this->mNowID)->second;
         }
 
         ErrCode Manager::DelContext(uint64_t id) {
-            this->jsContextPool.erase(id);
+            this->jsContextPoolMap.erase(id);
 
             return ErrCode::SUCCESS;
         }
 
         shadow::js::Context Manager::GetContext(uint64_t id) {
-            return this->jsContextPool.find(id)->second;
+            return this->jsContextPoolMap.find(id)->second;
         }
     } // namespace js
 } // namespace shadow

@@ -5,7 +5,7 @@
 #include "log/interface.h"
 #include "app.h"
 #include "threadpool/interface.h"
-#include "net/interface.h"
+#include "network/interface.h"
 
 void SignalHandler(int32_t sig) {
     switch(sig) {

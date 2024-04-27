@@ -37,13 +37,13 @@ namespace shadow {
         * 暂停
         * @return ErrCode
         */
-        ErrCode pause();
+        ErrCode Pause();
 
         /*resume
         * 恢复
         * @return ErrCode
         */
-        ErrCode resume();
+        ErrCode Resume();
 
         /*
         * 停止
@@ -61,7 +61,7 @@ namespace shadow {
         * 获取状态
         * @return AppState
         */
-        AppState getAppState();
+        AppState GetAppState();
 
     protected:
 
@@ -72,9 +72,9 @@ namespace shadow {
         * 设置服务器状态
         * @return ErrCode
         */
-        ErrCode setAppState(const AppState &);
+        ErrCode SetAppState(const AppState &);
 
-        bool isRunning();
+        bool IsRunning();
     };
 } // namespace shadow
 
