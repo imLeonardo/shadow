@@ -33,7 +33,7 @@ namespace shadow {
         SHADOW_API void CreateThread(ThreadNum_t);
 
         template<class F, class... Args>
-        SHADOW_API auto AddTask(const char *reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
+        SHADOW_API auto AddTask(std::string &reason, F &&f, Args &&... args)->std::future<typename std::result_of<F(Args...)>::type> {
             return shadow::threadpool::Pool::Instance().AddTask(reason, f, std::forward<Args>(args)...);
         }
 
