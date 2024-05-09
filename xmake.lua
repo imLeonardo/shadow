@@ -34,7 +34,7 @@ target("shadow", function()
     includes("src/**/xmake.lua")
 
     add_includedirs("src/include")
-    add_files("src/*.cpp")
+    add_files("src/*.cpp", "src/*.cppm")
 
     --add_packages("protobuf-cpp")
     --add_files("src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "src/proto"})
@@ -67,8 +67,8 @@ target("test", function()
     set_kind("binary")
 
     --add_includedirs("lib")
-    add_includedirs("test/src/include")
-    add_files("test/src/*.cpp")
+    --add_includedirs("test/src/include")
+    add_files("test/src/*.cpp", "test/src/*.cppm")
 
     --add_packages("protobuf-cpp")
     --add_files("test/src/proto/**.proto", {rules = "protobuf.cpp", proto_path = "test/src/proto"})

@@ -14,8 +14,8 @@
 // #include "test.h"
 // #include "echo_service.pb.h"
 // #include "javascript/quickjs/quickjs-libc.h"
+
 import <cstdio>;
-import <iostream>;
 
 int main(int argc, char **argv) {
     //    // 创建一个新的js环境

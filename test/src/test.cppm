@@ -1,3 +1,6 @@
+module;
+export module test;
+
 #include "test.h"
 
 #include <cstdio>
