@@ -4,6 +4,9 @@
 [submodule "lib/test/googletest"]
 	path = lib/test/googletest
 	url = https://github.com/google/googletest.git
+[submodule "lib/test/benchmark"]
+	path = lib/test/benchmark
+	url = https://github.com/google/benchmark.git
 [submodule "lib/javascript/quickjs"]
     path = lib/javascript/quickjs
     url = https://github.com/bellard/quickjs.git
