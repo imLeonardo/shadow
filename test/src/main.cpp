@@ -2,11 +2,13 @@
 // Created by leo on 2024/1/6.
 //
 
-// #include <cstdio>
-// #include <iostream>
+#include <cstdio>
+#include <format>
+#include <iostream>
 //
 // #include <vector>
 // #include <unordered_map>
+#include <map>
 
 // #include <google/protobuf/util/json_util.h>
 
@@ -15,9 +17,27 @@
 // #include "echo_service.pb.h"
 // #include "javascript/quickjs/quickjs-libc.h"
 
-import <cstdio>;
+// import <cstdio>;
 
-int main(int argc, char **argv) {
+class classA {
+public:
+    classA() { printf(std::format("classA\n").c_str()); }
+    classA(const classA& a) {
+        printf("copy construct classA\n");
+        return;
+    }
+
+    int32_t GetLen() {
+        printf("get len\n");
+        return 5;
+    }
+    int32_t GetBegin() {
+        printf("get begin\n");
+        return 0;
+    }
+};
+
+int main(int argc, char** argv) {
     //    // 创建一个新的js环境
     //    JSRuntime *rt = JS_NewRuntime();
     //    if(!rt) {
@@ -48,6 +68,10 @@ int main(int argc, char **argv) {
     //    JS_FreeValue(ctx, jsRes);
     //    JS_FreeContext(ctx);
     //    JS_FreeRuntime(rt);
+
+    classA a;
+    for (int32_t i = a.GetBegin(); i < a.GetLen(); i++) {
+    }
 
     std::cout << "1111111111111111" << std::endl;
 

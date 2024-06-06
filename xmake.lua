@@ -14,7 +14,7 @@ set_xmakever("2.2.3")
 --set_toolchains("clang")
 
 -- set language: c99, c++20
-set_languages("c99", "cxx20")
+set_languages("cxx20")
 
 add_rules("mode.debug", "mode.release")
 if is_mode("release") then
