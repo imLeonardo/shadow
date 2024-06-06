@@ -5,20 +5,20 @@
 #include "singleton/singleton.h"
 
 namespace shadow {
-    class Configure final: public shadow::Singleton<Configure> {
-    public:
-        explicit Configure(Singleton<Configure>::Token);
+class Configure final : public shadow::Singleton<Configure> {
+public:
+    explicit Configure(Singleton<Configure>::Token);
 
-        void Init(const char *);
+    void Init(const char*);
 
-        void Print();
+    void Print();
 
-        int64_t GetInt(const char *);
+    int64_t GetInt(const char*);
 
-        const char *GetString(const char *);
-    private:
+    const char* GetString(const char*);
 
-    };
-} // namespace shadow
+private:
+};
+}  // namespace shadow
 
-#endif // !SHADOW_CONFIGURE_H
+#endif  // !SHADOW_CONFIGURE_H
